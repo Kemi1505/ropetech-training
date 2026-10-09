@@ -5,6 +5,7 @@
 
 generator client {
   provider = "prisma-client"
+  output   = "../src/generated"
 }
 
 datasource db {
@@ -23,12 +24,39 @@ enum Role {
 }
 
 model User {
-  id        String   @id @default(uuid()) 
-  email     String   @unique
-  password  String?
-  role      Role     @default(USER)
-  authType AuthMethod @default(EMAIL_AND_PASSWORD)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String             @id @default(uuid())
+  email         String             @unique
+  password      String?           
+  authType      AuthMethod         @default(EMAIL_AND_PASSWORD)
+  role          Role               @default(USER)
+  isActive      Boolean            @default(true)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
 
+
+  refreshTokens RefreshToken[]
+  resetOtps     PasswordResetOtp[]
+}
+
+model RefreshToken {
+  id        String   @id            // equals the JWT "jti"
+  tokenHash String                  // sha256 of the refresh token
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model PasswordResetOtp {
+  id        String   @id @default(uuid())
+  otpHash   String
+  attempts  Int      @default(0)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }
