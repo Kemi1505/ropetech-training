@@ -30,6 +30,7 @@ model User {
   authType      AuthMethod         @default(EMAIL_AND_PASSWORD)
   role          Role               @default(USER)
   isActive      Boolean            @default(true)
+  googleId      String?            @unique
   createdAt     DateTime           @default(now())
   updatedAt     DateTime           @updatedAt
 
