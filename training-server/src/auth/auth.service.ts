@@ -167,7 +167,7 @@ export class AuthService {
 
   // --------------------------------------------------------- forgot password
   async forgotPassword({ email }: ForgotPasswordDto) {
-    const generic = { message: 'A 6-digit code has been sent to your registered email.' };
+    const generic = { message: 'If this is your registered email, A 6-digit code has been sent.' };
 
     const user = await this.users.findByEmail(email);
     if (!user) return generic; // don't reveal which emails exist
@@ -199,6 +199,7 @@ export class AuthService {
     ]);
 
     await this.mail.sendPasswordResetOtp(user.email, otp);
+    //console.log(otp)
     return generic;
   }
 
