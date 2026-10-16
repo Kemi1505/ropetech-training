@@ -16,6 +16,9 @@ export class MailService {
     this.from = `"${appName}" <${user}>`;
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: { user, pass: config.getOrThrow<string>('MAIL_APP_PASSWORD') },
     });
   }
