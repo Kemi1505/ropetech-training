@@ -148,6 +148,10 @@ export class AuthController {
   }
 
   // ----------------------------------------------------------------- cookies
+  private get refreshPath() {
+    return this.config.get<string>('REFRESH_COOKIE_PATH') ?? '/auth';
+  }
+
   private baseCookie(): CookieOptions {
     return {
       httpOnly: true,
@@ -164,13 +168,13 @@ export class AuthController {
     });
     res.cookie(REFRESH_COOKIE, tokens.refreshToken, {
       ...this.baseCookie(),
-      path: REFRESH_COOKIE_PATH,
+      path: this.refreshPath,
       maxAge: this.auth.refreshTtl * 1000,
     });
   }
 
   private clearAuthCookies(res: Response) {
     res.clearCookie(ACCESS_COOKIE, { ...this.baseCookie(), path: '/' });
-    res.clearCookie(REFRESH_COOKIE, { ...this.baseCookie(), path: REFRESH_COOKIE_PATH });
+    res.clearCookie(REFRESH_COOKIE, { ...this.baseCookie(), path: this.refreshPath });
   }
 }
