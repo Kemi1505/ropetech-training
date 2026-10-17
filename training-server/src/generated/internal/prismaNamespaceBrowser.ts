@@ -53,7 +53,13 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   RefreshToken: 'RefreshToken',
-  PasswordResetOtp: 'PasswordResetOtp'
+  PasswordResetOtp: 'PasswordResetOtp',
+  StoredFile: 'StoredFile',
+  Profile: 'Profile',
+  Course: 'Course',
+  CourseContent: 'CourseContent',
+  Enrollment: 'Enrollment',
+  ContentCompletion: 'ContentCompletion'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -108,6 +114,90 @@ export const PasswordResetOtpScalarFieldEnum = {
 } as const
 
 export type PasswordResetOtpScalarFieldEnum = (typeof PasswordResetOtpScalarFieldEnum)[keyof typeof PasswordResetOtpScalarFieldEnum]
+
+
+export const StoredFileScalarFieldEnum = {
+  id: 'id',
+  filename: 'filename',
+  mimeType: 'mimeType',
+  size: 'size',
+  data: 'data',
+  createdAt: 'createdAt'
+} as const
+
+export type StoredFileScalarFieldEnum = (typeof StoredFileScalarFieldEnum)[keyof typeof StoredFileScalarFieldEnum]
+
+
+export const ProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  phone: 'phone',
+  company: 'company',
+  hasPreviousCertification: 'hasPreviousCertification',
+  certificationApproved: 'certificationApproved',
+  certificationApprovedAt: 'certificationApprovedAt',
+  pictureFileId: 'pictureFileId',
+  certificationFileId: 'certificationFileId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
+
+
+export const CourseScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  overview: 'overview',
+  learningOutcomes: 'learningOutcomes',
+  price: 'price',
+  requiresPreviousCertification: 'requiresPreviousCertification',
+  difficulty: 'difficulty',
+  isPublished: 'isPublished',
+  pictureFileId: 'pictureFileId',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const CourseContentScalarFieldEnum = {
+  id: 'id',
+  courseId: 'courseId',
+  title: 'title',
+  position: 'position',
+  fileId: 'fileId',
+  createdAt: 'createdAt'
+} as const
+
+export type CourseContentScalarFieldEnum = (typeof CourseContentScalarFieldEnum)[keyof typeof CourseContentScalarFieldEnum]
+
+
+export const EnrollmentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  paymentStatus: 'paymentStatus',
+  paymentApprovedAt: 'paymentApprovedAt',
+  paymentApprovedById: 'paymentApprovedById',
+  enrolledAt: 'enrolledAt'
+} as const
+
+export type EnrollmentScalarFieldEnum = (typeof EnrollmentScalarFieldEnum)[keyof typeof EnrollmentScalarFieldEnum]
+
+
+export const ContentCompletionScalarFieldEnum = {
+  userId: 'userId',
+  contentId: 'contentId',
+  courseId: 'courseId',
+  completedAt: 'completedAt'
+} as const
+
+export type ContentCompletionScalarFieldEnum = (typeof ContentCompletionScalarFieldEnum)[keyof typeof ContentCompletionScalarFieldEnum]
 
 
 export const SortOrder = {

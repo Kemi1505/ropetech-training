@@ -54,3 +54,33 @@ export type RefreshToken = Prisma.RefreshTokenModel
  * 
  */
 export type PasswordResetOtp = Prisma.PasswordResetOtpModel
+/**
+ * Model StoredFile
+ * 
+ */
+export type StoredFile = Prisma.StoredFileModel
+/**
+ * Model Profile
+ * 
+ */
+export type Profile = Prisma.ProfileModel
+/**
+ * Model Course
+ * 
+ */
+export type Course = Prisma.CourseModel
+/**
+ * Model CourseContent
+ * 
+ */
+export type CourseContent = Prisma.CourseContentModel
+/**
+ * Model Enrollment
+ * 
+ */
+export type Enrollment = Prisma.EnrollmentModel
+/**
+ * Model ContentCompletion
+ * 
+ */
+export type ContentCompletion = Prisma.ContentCompletionModel
