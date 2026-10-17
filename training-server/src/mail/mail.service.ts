@@ -55,12 +55,13 @@ export class MailService {
     await this.send({
       to: this.config.getOrThrow<string>('ADMIN_ENQUIRY_EMAIL'),
       replyTo: e.email,
-      subject: `New enquiry from ${name}`,
-      text: `Name: ${name}\nEmail: ${e.email}\n\n${e.text}`,
+      subject: `New Enquiry from ${name}`,
+      text: `Email: ${e.email}\n\n${e.text}`,
       html: `
       <div style="font-family:Arial,sans-serif;max-width:560px">
         <h2>New enquiry</h2>
-        <p><b>Name:</b> ${escapeHtml(name)}<br><b>Email:</b> ${escapeHtml(e.email)}</p>
+        <p>You have a new enquiry from ${escapeHtml(name)}</p>
+        <p><b>Email:</b> ${escapeHtml(e.email)}</p>
         <p style="white-space:pre-wrap">${escapeHtml(e.text)}</p>
       </div>`,
     });
