@@ -10,6 +10,13 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
+import { AdminModule } from './admin/admin.module';
+import { ContentsModule } from './contents/contents.module';
+import { CoursesModule } from './courses/courses.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { EnquiryModule } from './enquiry/enquiry.module';
+import { FilesModule } from './files/files.module';
+import { ProfileModule } from './profile/profile.module';
 
 const REQUIRED_ENV = [
   'DATABASE_URL',
@@ -21,6 +28,7 @@ const REQUIRED_ENV = [
   'GOOGLE_CLIENT_ID',
   'GOOGLE_CLIENT_SECRET',
   'GOOGLE_CALLBACK_URL',
+  'ADMIN_ENQUIRY_EMAIL',
 ];
 
 @Module({
@@ -38,6 +46,13 @@ const REQUIRED_ENV = [
     MailModule,
     UsersModule,
     AuthModule,
+    AdminModule,
+    ContentsModule,
+    CoursesModule,
+    DashboardModule,
+    EnquiryModule,
+    FilesModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [
