@@ -5,10 +5,13 @@ import cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const config = app.get(ConfigService);
+
+  app.set('trust proxy', 1); // behind the Next.js proxy: rate limit by real client IP
 
   app.use(helmet());
   app.use(cookieParser());
