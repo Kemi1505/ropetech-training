@@ -61,6 +61,6 @@ export class CreateCourseDto {
   @IsBoolean()
   isPublished?: boolean;
 
-  @ApiPropertyOptional({ type: 'string', format: 'binary', description: 'PNG, max 3 MB' })
-  picture?: unknown;
+  // @ApiPropertyOptional({ type: 'string', format: 'binary', description: 'PNG, max 3 MB' })
+  // picture?: unknown;
 }

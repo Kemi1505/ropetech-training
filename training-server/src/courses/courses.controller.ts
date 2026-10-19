@@ -34,21 +34,30 @@ export class CoursesController {
   @ApiOperation({ summary: 'Picture of a published course (public)' })
   @Public()
   @Get(':id/picture')
-  async picture(@Param('id', ParseUUIDPipe) id: string, @Res({ passthrough: true }) res: Response) {
-    return this.files.stream(await this.courses.publishedPictureId(id), res, { cache: 'public' });
+  async picture(
+    @Param('id', ParseUUIDPipe) id: string, 
+    @Res({ passthrough: true }) res: Response) {
+    return this.files.stream(
+      await this.courses.publishedPictureId(id), 
+      res, 
+      { cache: 'public' });
   }
 
   @ApiOperation({ summary: 'Enroll in a published course. Payment is approved separately.' })
   @ApiAuth()
   @Post(':id/enroll')
-  enroll(@CurrentUser() user: AuthUser, @Param('id', ParseUUIDPipe) id: string) {
+  enroll(
+    @CurrentUser() user: AuthUser, 
+    @Param('id', ParseUUIDPipe) id: string) {
     return this.courses.enroll(user, id);
   }
 
   @ApiOperation({ summary: 'Your enrollment and payment status for this course' })
   @ApiAuth()
   @Get(':id/my-enrollment')
-  myEnrollment(@CurrentUser() user: AuthUser, @Param('id', ParseUUIDPipe) id: string) {
+  myEnrollment(
+    @CurrentUser() user: AuthUser, 
+    @Param('id', ParseUUIDPipe) id: string) {
     return this.courses.myEnrollment(user.id, id);
   }
 }

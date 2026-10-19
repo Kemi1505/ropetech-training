@@ -7,7 +7,11 @@ import { PrismaService } from '../prisma/prisma.service';
 import { AuthMethod, PaymentStatus, Prisma, Role } from '../generated/client';
 import { toPublicUser } from '../users/users.service';
 
-type CertProfile = { hasPreviousCertification: boolean; certificationApproved: boolean } | null;
+type CertProfile = { 
+  hasPreviousCertification: boolean; 
+  certificationApproved: boolean 
+} | null;
+
 const certStatus = (p: CertProfile) =>
   !p || !p.hasPreviousCertification ? 'NONE' : p.certificationApproved ? 'APPROVED' : 'PENDING';
 
@@ -37,8 +41,11 @@ export class AdminService {
 
   // ------------------------------------------------------------ admins (superadmin)
   async createAdmin(dto: CreateAdminDto) {
-    if (await this.prisma.user.findUnique({ where: { email: dto.email } })) {
-      throw new ConflictException('Email already registered');
+    if (await this.prisma.user.findUnique(
+      { 
+        where: { email: dto.email } 
+      })) {
+      throw new ConflictException('Email is already registered');
     }
     const user = await this.prisma.user.create({
       data: {
@@ -56,18 +63,25 @@ export class AdminService {
   async promoteToSuperadmin(id: string) {
     const user = await this.prisma.user.findUnique({ where: { id } });
     if (!user) throw new NotFoundException('User not found');
-    if (user.role !== Role.ADMIN) throw new BadRequestException('Only an admin can be promoted to superadmin');
-    const updated = await this.prisma.user.update({ where: { id }, data: { role: Role.SUPERADMIN } });
+    if (user.role !== Role.ADMIN) 
+      throw new BadRequestException('Only an admin can be promoted to superadmin');
+    const updated = await this.prisma.user.update({ 
+      where: { id }, 
+      data: { role: Role.SUPERADMIN } });
     return toPublicUser(updated);
   }
 
   listAdmins(p: PaginationDto) {
-    return this.listUsersWhere({ role: { in: [Role.ADMIN, Role.SUPERADMIN] } }, p);
+    return this.listUsersWhere({ 
+      role: { in: [Role.ADMIN, Role.SUPERADMIN] } 
+    }, p);
   }
 
   // --------------------------------------------------------------------------- users
   listUsers(p: PaginationDto) {
-    return this.listUsersWhere({ role: Role.USER }, p);
+    return this.listUsersWhere({ 
+      role: Role.USER 
+    }, p);
   }
 
   private async listUsersWhere(where: Prisma.UserWhereInput, p: PaginationDto) {
@@ -102,7 +116,8 @@ export class AdminService {
 
   // ---------------------------------------------------------------------- payments
   async listEnrollments(q: EnrollmentQueryDto) {
-    const where: Prisma.EnrollmentWhereInput = q.paymentStatus ? { paymentStatus: q.paymentStatus } : {};
+    const where: Prisma.EnrollmentWhereInput = 
+      q.paymentStatus ? { paymentStatus: q.paymentStatus } : {};
     const [total, rows] = await this.prisma.$transaction([
       this.prisma.enrollment.count({ where }),
       this.prisma.enrollment.findMany({
@@ -114,8 +129,24 @@ export class AdminService {
           paymentStatus: true,
           enrolledAt: true,
           paymentApprovedAt: true,
-          user: { select: { id: true, email: true, profile: { select: { firstName: true, lastName: true } } } },
-          course: { select: { id: true, name: true, price: true } },
+          user: { 
+            select: 
+            { 
+              id: true, 
+              email: true, 
+              profile: { 
+                select: 
+                { 
+                  firstName: true, 
+                  lastName: true 
+                } } } },
+          course: { 
+            select: 
+            { 
+              id: true, 
+              name: true, 
+              price: true 
+            } },
         },
       }),
     ]);
@@ -129,9 +160,14 @@ export class AdminService {
         user: {
           id: e.user.id,
           email: e.user.email,
-          name: e.user.profile ? `${e.user.profile.firstName} ${e.user.profile.lastName}` : null,
+          name: e.user.profile ? 
+          `${e.user.profile.firstName} ${e.user.profile.lastName}` 
+          : null,
         },
-        course: { id: e.course.id, name: e.course.name, price: Number(e.course.price) },
+        course: { 
+          id: e.course.id, 
+          name: e.course.name, 
+          price: Number(e.course.price) },
       })),
       meta: pageMeta(q, total),
     };
@@ -140,14 +176,23 @@ export class AdminService {
   async approvePayment(enrollmentId: string, adminId: string) {
     const e = await this.prisma.enrollment.findUnique({ where: { id: enrollmentId } });
     if (!e) throw new NotFoundException('Enrollment not found');
-    if (e.paymentStatus === PaymentStatus.APPROVED) throw new ConflictException('Payment already approved');
+    if (e.paymentStatus === PaymentStatus.APPROVED) 
+      throw new ConflictException('Payment already approved');
 
     const updated = await this.prisma.enrollment.update({
       where: { id: enrollmentId },
-      data: { paymentStatus: PaymentStatus.APPROVED, paymentApprovedAt: new Date(), paymentApprovedById: adminId },
-      select: { id: true, paymentStatus: true, paymentApprovedAt: true },
+      data: { 
+        paymentStatus: PaymentStatus.APPROVED, 
+        paymentApprovedAt: new Date(), 
+        paymentApprovedById: adminId },
+      select: { 
+        id: true, 
+        paymentStatus: true, 
+        paymentApprovedAt: true },
     });
-    return { message: 'Payment approved. The learner can now access the course.', enrollment: updated };
+    return { 
+      message: 'This user Payment is now approved.', 
+      enrollment: updated };
   }
 
   // ------------------------------------------------------------------ certifications
@@ -190,14 +235,20 @@ export class AdminService {
   }
 
   async certificationFileId(userId: string) {
-    const p = await this.prisma.profile.findUnique({ where: { userId }, select: { certificationFileId: true } });
-    if (!p?.certificationFileId) throw new NotFoundException('No certification file for this user');
+    const p = await this.prisma.profile.findUnique(
+      { 
+        where: { userId }, 
+        select: { certificationFileId: true } 
+      });
+    if (!p?.certificationFileId) 
+      throw new NotFoundException('No certification file for this user');
     return p.certificationFileId;
   }
 
   async approveCertification(userId: string) {
     const p = await this.prisma.profile.findUnique({ where: { userId } });
-    if (!p) throw new NotFoundException('This user has not completed their profile');
+    if (!p) 
+      throw new NotFoundException('This user has not completed their profile');
     if (!p.hasPreviousCertification || !p.certificationFileId) {
       throw new BadRequestException('This user has not uploaded a certification file');
     }
@@ -205,7 +256,10 @@ export class AdminService {
 
     await this.prisma.profile.update({
       where: { userId },
-      data: { certificationApproved: true, certificationApprovedAt: new Date() },
+      data: 
+      { 
+        certificationApproved: true, 
+        certificationApprovedAt: new Date() },
     });
     return { message: 'Certification approved' };
   }

@@ -1,4 +1,9 @@
-import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { 
+  ConflictException, 
+  ForbiddenException, 
+  Injectable, 
+  NotFoundException 
+} from '@nestjs/common';
 import { FILE_RULES, FilesService, kindOfMime } from '../files/files.service';
 import { AddContentDto } from './dto/add-content.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -32,7 +37,11 @@ export class ContentsService {
     const course = await this.prisma.course.findFirst({
       where: this.isStaff(user)
         ? { id: courseId }
-        : { id: courseId, OR: [{ isPublished: true }, { enrollments: { some: { userId: user.id } } }] },
+        : { id: courseId, 
+          OR: [{ 
+            isPublished: true }, { 
+              enrollments: { 
+                some: { userId: user.id } } }] },
       select: { id: true },
     });
     if (!course) throw new NotFoundException('Course not found');
@@ -86,13 +95,25 @@ export class ContentsService {
   }
 
   // ------------------------------------------------------------------------ add
-  async add(courseId: string, dto: AddContentDto, file: Express.Multer.File | undefined) {
-    const course = await this.prisma.course.findUnique({ where: { id: courseId }, select: { id: true } });
-    if (!course) throw new NotFoundException('Course not found');
+  async add(
+    courseId: string, 
+    dto: AddContentDto, 
+    file: Express.Multer.File | undefined
+  ) {
+    const course = await this.prisma.course.findUnique(
+      { where: 
+        { id: courseId }, 
+        select: { 
+          id: true 
+        } });
+    if (!course) 
+      throw new NotFoundException('Course not found');
 
     const stored = await this.files.save(file, FILE_RULES.content);
     try {
-      const last = await this.prisma.courseContent.aggregate({ where: { courseId }, _max: { position: true } });
+      const last = await this.prisma.courseContent.aggregate(
+        { where: { courseId },
+         _max: { position: true } });
       const content = await this.prisma.courseContent.create({
         data: {
           courseId,
@@ -120,7 +141,8 @@ export class ContentsService {
     if (content.course.isPublished) {
       const count = await this.prisma.courseContent.count({ where: { courseId } });
       if (count <= 1) {
-        throw new ConflictException('A published course must keep at least one file. Unpublish the course first.');
+        throw new ConflictException(
+          'A published course must keep at least one file. Unpublish the course first.');
       }
     }
 
@@ -140,14 +162,16 @@ export class ContentsService {
     if (!content) throw new NotFoundException('Content not found');
 
     if (!this.isStaff(user) && !(await this.hasAccess(user.id, courseId))) {
-      throw new ForbiddenException('Your payment must be approved before you can open this content');
+      throw new ForbiddenException(
+        'Your payment must be approved before you can open this content');
     }
     return content.fileId;
   }
 
   // ------------------------------------------------------------------- progress
   async complete(courseId: string, contentId: string, user: AuthUser) {
-    if (this.isStaff(user)) throw new ForbiddenException('Only learners track progress');
+    if (this.isStaff(user)) 
+      throw new ForbiddenException('Only learners track progress');
     await this.fileIdFor(courseId, contentId, user); // same existence + access checks
 
     await this.prisma.contentCompletion.upsert({
@@ -156,6 +180,10 @@ export class ContentsService {
       update: {},
     });
     const p = await this.progress(user.id, courseId);
-    return { progress: p.percent, completedItems: p.done, totalItems: p.total, completed: p.done === p.total };
+    return { 
+      progress: p.percent, 
+      completedItems: p.done, 
+      totalItems: p.total, 
+      completed: p.done === p.total };
   }
 }

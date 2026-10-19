@@ -11,6 +11,5 @@ export class AddContentDto {
   @MaxLength(150)
   title?: string;
 
-  @ApiProperty({ type: 'string', format: 'binary', description: 'PDF, PPTX or PNG, max 25 MB' })
-  file: unknown;
+ 
 }

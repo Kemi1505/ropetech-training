@@ -27,7 +27,10 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { type AuthUser } from '../auth/types';
 
 const pictureUpload = () =>
-  UseInterceptors(FileInterceptor('picture', { limits: { fileSize: FILE_RULES.image.maxBytes } }));
+  UseInterceptors(
+    FileInterceptor('picture', 
+      { limits: 
+        { fileSize: FILE_RULES.image.maxBytes } }));
 
 @ApiTags('Courses (admin)')
 @ApiAuth()
@@ -65,7 +68,10 @@ export class AdminCoursesController {
 
   @ApiOperation({ summary: 'Course picture (any course)' })
   @Get(':id/picture')
-  async picture(@Param('id', ParseUUIDPipe) id: string, @Res({ passthrough: true }) res: Response) {
+  async picture(
+    @Param('id', ParseUUIDPipe) id: string, 
+    @Res({ passthrough: true }) res: Response
+  ) {
     return this.files.stream(await this.courses.anyPictureId(id), res, { cache: 'private' });
   }
 
