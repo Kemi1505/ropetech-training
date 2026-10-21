@@ -113,14 +113,26 @@ export async function apiFetch<T = unknown>(path: string, init: ApiInit = {}): P
     }
   }
 
+  
+  const contentType = res.headers.get('content-type') ?? '';
+
+  if (contentType.includes('application/json')) {
+    data = await res.json().catch(() => null);
+  } else {
+    // Avoid displaying a long HTML error page to the user.
+    await res.text().catch(() => '');
+  }
+
   if (!res.ok) {
-    throw new ApiError(
-      res.status,
+    const message =
       extractMessage(data) ??
-        (res.status >= 500
+      (res.status === 404
+        ? 'The requested resource was not found.'
+        : res.status >= 500
           ? 'Something went wrong on our side. Please try again.'
-          : 'Your request could not be completed. Please try again.'),
-    );
+          : 'Something went wrong. Please try again.');
+
+    throw new ApiError(res.status, message);
   }
 
   if (!responseText) {
