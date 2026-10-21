@@ -1,10 +1,10 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { LinkButton } from '@/components/button';
+import { Button, LinkButton } from '@/components/button';
 import { Footer } from '@/components/footer';
 import Image from "next/image";
 import  Logo  from '@/components/logo';
-
+import EnquiryModal from '@/components/enquiry-modal';
 
 const features = [
   {
@@ -95,10 +95,16 @@ export default function LandingPage() {
             <p className="mt-6 max-w-xl text-lg text-brand-700">
               Professional training you can trust, self paced, industry-recognized. 
             </p>
-            <div className="mt-8">
-              <LinkButton href="/signup" pill className="min-w-[190px] px-10 py-4 text-base">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <LinkButton 
+              href="/signup" 
+              pill 
+              className="min-w-[190px] px-10 py-4 text-base">
                 Get Started
               </LinkButton>
+
+              <EnquiryModal />
+
             </div>
           </div>
           {/* TODO: replace with real industrial/training photography */}
@@ -205,9 +211,18 @@ export default function LandingPage() {
             <p className="max-w-xl text-brand-100">
               Create a free account and start browsing our full course library today.
             </p>
-            <LinkButton href="/signup" variant="accent" pill className="px-10 py-4 text-base">
-              Get Started
-            </LinkButton>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <LinkButton 
+                href="/signup" 
+                variant="accent" 
+                pill 
+                className="px-10 py-4 text-base">
+                  Get Started
+                </LinkButton>
+                <EnquiryModal />
+
+            </div>
+            
           </div>
         </section>
       </main>
