@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-//import { AuthMethod, User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { createHash, randomInt, randomUUID, timingSafeEqual } from 'crypto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -60,7 +59,7 @@ export class AuthService {
   }
 
   // ---------------------------------------------------------------- register
-  async register(dto: RegisterDto) {
+  async register(dto: RegisterDto): Promise<AuthResult> {
     if (dto.password !== dto.confirmPassword) {
       throw new BadRequestException('Passwords do not match');
     }
@@ -73,7 +72,7 @@ export class AuthService {
       authType: AuthMethod.EMAIL_AND_PASSWORD,
       // role is never taken from the request: always USER
     });
-    return toPublicUser(user);
+    return this.issueTokens(user);
   }
 
   // ------------------------------------------------------------------- login
