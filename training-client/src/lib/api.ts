@@ -16,6 +16,7 @@ export class ApiError extends Error {
 
 type ApiInit = Omit<RequestInit, 'body'> & {
   json?: unknown;
+  form?: FormData
   /** Skip the refresh-and-retry on 401. Use for login, signup and logout. */
   skipRefresh?: boolean;
 };
@@ -74,16 +75,20 @@ function extractMessage(data: unknown): string | undefined {
 }
 
 
-export async function apiFetch<T = unknown>(path: string, init: ApiInit = {}): Promise<T> {
-  const { json, skipRefresh, headers, ...rest } = init;
+export async function apiFetch<T = unknown>(
+  path: string, 
+  init: ApiInit = {},
+): Promise<T> {
+  const { json, form, skipRefresh, headers, ...rest } = init;
 
   const send = () => {
     const h = new Headers(headers);
-    if (json !== undefined) h.set('Content-Type', 'application/json');
+    if (json !== undefined) 
+      h.set('Content-Type', 'application/json');
     return fetch(`/api${path}`, {
       ...rest,
       headers: h,
-      body: json !== undefined ? JSON.stringify(json) : undefined,
+      body: form ?? (json !== undefined ? JSON.stringify(json) : undefined),
       credentials: 'same-origin',
     });
   };
@@ -109,19 +114,10 @@ export async function apiFetch<T = unknown>(path: string, init: ApiInit = {}): P
       data = JSON.parse(responseText);
     } catch {
       // The backend may return plain text instead of JSON.
-      data = responseText;
+      data = null;
     }
   }
 
-  
-  const contentType = res.headers.get('content-type') ?? '';
-
-  if (contentType.includes('application/json')) {
-    data = await res.json().catch(() => null);
-  } else {
-    // Avoid displaying a long HTML error page to the user.
-    await res.text().catch(() => '');
-  }
 
   if (!res.ok) {
     const message =
@@ -133,10 +129,6 @@ export async function apiFetch<T = unknown>(path: string, init: ApiInit = {}): P
           : 'Something went wrong. Please try again.');
 
     throw new ApiError(res.status, message);
-  }
-
-  if (!responseText) {
-    return undefined as T;
   }
 
   return data as T;
