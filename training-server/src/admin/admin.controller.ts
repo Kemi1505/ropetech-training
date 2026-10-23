@@ -59,13 +59,6 @@ export class AdminController {
     return this.admin.listEnrollments(q);
   }
 
-  @ApiOperation({ summary: 'Approve payment: unlocks the course for the learner' })
-  @HttpCode(200)
-  @Post('enrollments/:id/approve-payment')
-  approvePayment(@Param('id', ParseUUIDPipe) id: string, @CurrentUser() me: AuthUser) {
-    return this.admin.approvePayment(id, me.id);
-  }
-
   @ApiOperation({ summary: 'Certification files waiting for approval' })
   @Get('certifications/pending')
   pendingCertifications(@Query() q: PaginationDto) {

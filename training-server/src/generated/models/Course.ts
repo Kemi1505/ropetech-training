@@ -28,10 +28,12 @@ export type AggregateCourse = {
 
 export type CourseAvgAggregateOutputType = {
   price: runtime.Decimal | null
+  passMark: number | null
 }
 
 export type CourseSumAggregateOutputType = {
   price: runtime.Decimal | null
+  passMark: number | null
 }
 
 export type CourseMinAggregateOutputType = {
@@ -42,6 +44,7 @@ export type CourseMinAggregateOutputType = {
   requiresPreviousCertification: boolean | null
   difficulty: $Enums.Difficulty | null
   isPublished: boolean | null
+  passMark: number | null
   pictureFileId: string | null
   createdById: string | null
   createdAt: Date | null
@@ -56,6 +59,7 @@ export type CourseMaxAggregateOutputType = {
   requiresPreviousCertification: boolean | null
   difficulty: $Enums.Difficulty | null
   isPublished: boolean | null
+  passMark: number | null
   pictureFileId: string | null
   createdById: string | null
   createdAt: Date | null
@@ -71,6 +75,7 @@ export type CourseCountAggregateOutputType = {
   requiresPreviousCertification: number
   difficulty: number
   isPublished: number
+  passMark: number
   pictureFileId: number
   createdById: number
   createdAt: number
@@ -81,10 +86,12 @@ export type CourseCountAggregateOutputType = {
 
 export type CourseAvgAggregateInputType = {
   price?: true
+  passMark?: true
 }
 
 export type CourseSumAggregateInputType = {
   price?: true
+  passMark?: true
 }
 
 export type CourseMinAggregateInputType = {
@@ -95,6 +102,7 @@ export type CourseMinAggregateInputType = {
   requiresPreviousCertification?: true
   difficulty?: true
   isPublished?: true
+  passMark?: true
   pictureFileId?: true
   createdById?: true
   createdAt?: true
@@ -109,6 +117,7 @@ export type CourseMaxAggregateInputType = {
   requiresPreviousCertification?: true
   difficulty?: true
   isPublished?: true
+  passMark?: true
   pictureFileId?: true
   createdById?: true
   createdAt?: true
@@ -124,6 +133,7 @@ export type CourseCountAggregateInputType = {
   requiresPreviousCertification?: true
   difficulty?: true
   isPublished?: true
+  passMark?: true
   pictureFileId?: true
   createdById?: true
   createdAt?: true
@@ -226,6 +236,7 @@ export type CourseGroupByOutputType = {
   requiresPreviousCertification: boolean
   difficulty: $Enums.Difficulty
   isPublished: boolean
+  passMark: number | null
   pictureFileId: string | null
   createdById: string | null
   createdAt: Date
@@ -264,6 +275,7 @@ export type CourseWhereInput = {
   requiresPreviousCertification?: Prisma.BoolFilter<"Course"> | boolean
   difficulty?: Prisma.EnumDifficultyFilter<"Course"> | $Enums.Difficulty
   isPublished?: Prisma.BoolFilter<"Course"> | boolean
+  passMark?: Prisma.IntNullableFilter<"Course"> | number | null
   pictureFileId?: Prisma.StringNullableFilter<"Course"> | string | null
   createdById?: Prisma.StringNullableFilter<"Course"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
@@ -271,6 +283,8 @@ export type CourseWhereInput = {
   picture?: Prisma.XOR<Prisma.StoredFileNullableScalarRelationFilter, Prisma.StoredFileWhereInput> | null
   contents?: Prisma.CourseContentListRelationFilter
   enrollments?: Prisma.EnrollmentListRelationFilter
+  questions?: Prisma.QuestionListRelationFilter
+  attempts?: Prisma.AssessmentAttemptListRelationFilter
 }
 
 export type CourseOrderByWithRelationInput = {
@@ -282,6 +296,7 @@ export type CourseOrderByWithRelationInput = {
   requiresPreviousCertification?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
+  passMark?: Prisma.SortOrderInput | Prisma.SortOrder
   pictureFileId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -289,6 +304,8 @@ export type CourseOrderByWithRelationInput = {
   picture?: Prisma.StoredFileOrderByWithRelationInput
   contents?: Prisma.CourseContentOrderByRelationAggregateInput
   enrollments?: Prisma.EnrollmentOrderByRelationAggregateInput
+  questions?: Prisma.QuestionOrderByRelationAggregateInput
+  attempts?: Prisma.AssessmentAttemptOrderByRelationAggregateInput
 }
 
 export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -304,12 +321,15 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   requiresPreviousCertification?: Prisma.BoolFilter<"Course"> | boolean
   difficulty?: Prisma.EnumDifficultyFilter<"Course"> | $Enums.Difficulty
   isPublished?: Prisma.BoolFilter<"Course"> | boolean
+  passMark?: Prisma.IntNullableFilter<"Course"> | number | null
   createdById?: Prisma.StringNullableFilter<"Course"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
   picture?: Prisma.XOR<Prisma.StoredFileNullableScalarRelationFilter, Prisma.StoredFileWhereInput> | null
   contents?: Prisma.CourseContentListRelationFilter
   enrollments?: Prisma.EnrollmentListRelationFilter
+  questions?: Prisma.QuestionListRelationFilter
+  attempts?: Prisma.AssessmentAttemptListRelationFilter
 }, "id" | "pictureFileId">
 
 export type CourseOrderByWithAggregationInput = {
@@ -321,6 +341,7 @@ export type CourseOrderByWithAggregationInput = {
   requiresPreviousCertification?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
+  passMark?: Prisma.SortOrderInput | Prisma.SortOrder
   pictureFileId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -344,6 +365,7 @@ export type CourseScalarWhereWithAggregatesInput = {
   requiresPreviousCertification?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean
   difficulty?: Prisma.EnumDifficultyWithAggregatesFilter<"Course"> | $Enums.Difficulty
   isPublished?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean
+  passMark?: Prisma.IntNullableWithAggregatesFilter<"Course"> | number | null
   pictureFileId?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   createdById?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Course"> | Date | string
@@ -359,12 +381,15 @@ export type CourseCreateInput = {
   requiresPreviousCertification?: boolean
   difficulty: $Enums.Difficulty
   isPublished?: boolean
+  passMark?: number | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   picture?: Prisma.StoredFileCreateNestedOneWithoutCoursePictureInput
   contents?: Prisma.CourseContentCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutCourseInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutCourseInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateInput = {
@@ -376,12 +401,15 @@ export type CourseUncheckedCreateInput = {
   requiresPreviousCertification?: boolean
   difficulty: $Enums.Difficulty
   isPublished?: boolean
+  passMark?: number | null
   pictureFileId?: string | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contents?: Prisma.CourseContentUncheckedCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutCourseInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCourseInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUpdateInput = {
@@ -393,12 +421,15 @@ export type CourseUpdateInput = {
   requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   picture?: Prisma.StoredFileUpdateOneWithoutCoursePictureNestedInput
   contents?: Prisma.CourseContentUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutCourseNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutCourseNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateInput = {
@@ -410,12 +441,15 @@ export type CourseUncheckedUpdateInput = {
   requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pictureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contents?: Prisma.CourseContentUncheckedUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutCourseNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateManyInput = {
@@ -427,6 +461,7 @@ export type CourseCreateManyInput = {
   requiresPreviousCertification?: boolean
   difficulty: $Enums.Difficulty
   isPublished?: boolean
+  passMark?: number | null
   pictureFileId?: string | null
   createdById?: string | null
   createdAt?: Date | string
@@ -442,6 +477,7 @@ export type CourseUpdateManyMutationInput = {
   requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -456,6 +492,7 @@ export type CourseUncheckedUpdateManyInput = {
   requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pictureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -484,6 +521,7 @@ export type CourseCountOrderByAggregateInput = {
   requiresPreviousCertification?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
+  passMark?: Prisma.SortOrder
   pictureFileId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -492,6 +530,7 @@ export type CourseCountOrderByAggregateInput = {
 
 export type CourseAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
+  passMark?: Prisma.SortOrder
 }
 
 export type CourseMaxOrderByAggregateInput = {
@@ -502,6 +541,7 @@ export type CourseMaxOrderByAggregateInput = {
   requiresPreviousCertification?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
+  passMark?: Prisma.SortOrder
   pictureFileId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -516,6 +556,7 @@ export type CourseMinOrderByAggregateInput = {
   requiresPreviousCertification?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
+  passMark?: Prisma.SortOrder
   pictureFileId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -524,6 +565,7 @@ export type CourseMinOrderByAggregateInput = {
 
 export type CourseSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
+  passMark?: Prisma.SortOrder
 }
 
 export type CourseScalarRelationFilter = {
@@ -584,6 +626,14 @@ export type EnumDifficultyFieldUpdateOperationsInput = {
   set?: $Enums.Difficulty
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type CourseCreateNestedOneWithoutContentsInput = {
   create?: Prisma.XOR<Prisma.CourseCreateWithoutContentsInput, Prisma.CourseUncheckedCreateWithoutContentsInput>
   connectOrCreate?: Prisma.CourseCreateOrConnectWithoutContentsInput
@@ -612,6 +662,34 @@ export type CourseUpdateOneRequiredWithoutEnrollmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutEnrollmentsInput, Prisma.CourseUpdateWithoutEnrollmentsInput>, Prisma.CourseUncheckedUpdateWithoutEnrollmentsInput>
 }
 
+export type CourseCreateNestedOneWithoutQuestionsInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutQuestionsInput, Prisma.CourseUncheckedCreateWithoutQuestionsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutQuestionsInput
+  connect?: Prisma.CourseWhereUniqueInput
+}
+
+export type CourseUpdateOneRequiredWithoutQuestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutQuestionsInput, Prisma.CourseUncheckedCreateWithoutQuestionsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutQuestionsInput
+  upsert?: Prisma.CourseUpsertWithoutQuestionsInput
+  connect?: Prisma.CourseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutQuestionsInput, Prisma.CourseUpdateWithoutQuestionsInput>, Prisma.CourseUncheckedUpdateWithoutQuestionsInput>
+}
+
+export type CourseCreateNestedOneWithoutAttemptsInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutAttemptsInput, Prisma.CourseUncheckedCreateWithoutAttemptsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutAttemptsInput
+  connect?: Prisma.CourseWhereUniqueInput
+}
+
+export type CourseUpdateOneRequiredWithoutAttemptsNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutAttemptsInput, Prisma.CourseUncheckedCreateWithoutAttemptsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutAttemptsInput
+  upsert?: Prisma.CourseUpsertWithoutAttemptsInput
+  connect?: Prisma.CourseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutAttemptsInput, Prisma.CourseUpdateWithoutAttemptsInput>, Prisma.CourseUncheckedUpdateWithoutAttemptsInput>
+}
+
 export type CourseCreateWithoutPictureInput = {
   id?: string
   name: string
@@ -621,11 +699,14 @@ export type CourseCreateWithoutPictureInput = {
   requiresPreviousCertification?: boolean
   difficulty: $Enums.Difficulty
   isPublished?: boolean
+  passMark?: number | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contents?: Prisma.CourseContentCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutCourseInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutCourseInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutPictureInput = {
@@ -637,11 +718,14 @@ export type CourseUncheckedCreateWithoutPictureInput = {
   requiresPreviousCertification?: boolean
   difficulty: $Enums.Difficulty
   isPublished?: boolean
+  passMark?: number | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contents?: Prisma.CourseContentUncheckedCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutCourseInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCourseInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutPictureInput = {
@@ -669,11 +753,14 @@ export type CourseUpdateWithoutPictureInput = {
   requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contents?: Prisma.CourseContentUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutCourseNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutCourseNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutPictureInput = {
@@ -685,11 +772,14 @@ export type CourseUncheckedUpdateWithoutPictureInput = {
   requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contents?: Prisma.CourseContentUncheckedUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutCourseNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutContentsInput = {
@@ -701,11 +791,14 @@ export type CourseCreateWithoutContentsInput = {
   requiresPreviousCertification?: boolean
   difficulty: $Enums.Difficulty
   isPublished?: boolean
+  passMark?: number | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   picture?: Prisma.StoredFileCreateNestedOneWithoutCoursePictureInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutCourseInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutCourseInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutContentsInput = {
@@ -717,11 +810,14 @@ export type CourseUncheckedCreateWithoutContentsInput = {
   requiresPreviousCertification?: boolean
   difficulty: $Enums.Difficulty
   isPublished?: boolean
+  passMark?: number | null
   pictureFileId?: string | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutCourseInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCourseInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutContentsInput = {
@@ -749,11 +845,14 @@ export type CourseUpdateWithoutContentsInput = {
   requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   picture?: Prisma.StoredFileUpdateOneWithoutCoursePictureNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutCourseNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutCourseNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutContentsInput = {
@@ -765,11 +864,14 @@ export type CourseUncheckedUpdateWithoutContentsInput = {
   requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pictureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutCourseNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutEnrollmentsInput = {
@@ -781,11 +883,14 @@ export type CourseCreateWithoutEnrollmentsInput = {
   requiresPreviousCertification?: boolean
   difficulty: $Enums.Difficulty
   isPublished?: boolean
+  passMark?: number | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   picture?: Prisma.StoredFileCreateNestedOneWithoutCoursePictureInput
   contents?: Prisma.CourseContentCreateNestedManyWithoutCourseInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutCourseInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutEnrollmentsInput = {
@@ -797,11 +902,14 @@ export type CourseUncheckedCreateWithoutEnrollmentsInput = {
   requiresPreviousCertification?: boolean
   difficulty: $Enums.Difficulty
   isPublished?: boolean
+  passMark?: number | null
   pictureFileId?: string | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contents?: Prisma.CourseContentUncheckedCreateNestedManyWithoutCourseInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCourseInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutEnrollmentsInput = {
@@ -829,11 +937,14 @@ export type CourseUpdateWithoutEnrollmentsInput = {
   requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   picture?: Prisma.StoredFileUpdateOneWithoutCoursePictureNestedInput
   contents?: Prisma.CourseContentUpdateManyWithoutCourseNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutCourseNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutEnrollmentsInput = {
@@ -845,11 +956,198 @@ export type CourseUncheckedUpdateWithoutEnrollmentsInput = {
   requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pictureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contents?: Prisma.CourseContentUncheckedUpdateManyWithoutCourseNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutCourseNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseCreateWithoutQuestionsInput = {
+  id?: string
+  name: string
+  overview: string
+  learningOutcomes?: Prisma.CourseCreatelearningOutcomesInput | string[]
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requiresPreviousCertification?: boolean
+  difficulty: $Enums.Difficulty
+  isPublished?: boolean
+  passMark?: number | null
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  picture?: Prisma.StoredFileCreateNestedOneWithoutCoursePictureInput
+  contents?: Prisma.CourseContentCreateNestedManyWithoutCourseInput
+  enrollments?: Prisma.EnrollmentCreateNestedManyWithoutCourseInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutCourseInput
+}
+
+export type CourseUncheckedCreateWithoutQuestionsInput = {
+  id?: string
+  name: string
+  overview: string
+  learningOutcomes?: Prisma.CourseCreatelearningOutcomesInput | string[]
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requiresPreviousCertification?: boolean
+  difficulty: $Enums.Difficulty
+  isPublished?: boolean
+  passMark?: number | null
+  pictureFileId?: string | null
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  contents?: Prisma.CourseContentUncheckedCreateNestedManyWithoutCourseInput
+  enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutCourseInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutCourseInput
+}
+
+export type CourseCreateOrConnectWithoutQuestionsInput = {
+  where: Prisma.CourseWhereUniqueInput
+  create: Prisma.XOR<Prisma.CourseCreateWithoutQuestionsInput, Prisma.CourseUncheckedCreateWithoutQuestionsInput>
+}
+
+export type CourseUpsertWithoutQuestionsInput = {
+  update: Prisma.XOR<Prisma.CourseUpdateWithoutQuestionsInput, Prisma.CourseUncheckedUpdateWithoutQuestionsInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutQuestionsInput, Prisma.CourseUncheckedCreateWithoutQuestionsInput>
+  where?: Prisma.CourseWhereInput
+}
+
+export type CourseUpdateToOneWithWhereWithoutQuestionsInput = {
+  where?: Prisma.CourseWhereInput
+  data: Prisma.XOR<Prisma.CourseUpdateWithoutQuestionsInput, Prisma.CourseUncheckedUpdateWithoutQuestionsInput>
+}
+
+export type CourseUpdateWithoutQuestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  overview?: Prisma.StringFieldUpdateOperationsInput | string
+  learningOutcomes?: Prisma.CourseUpdatelearningOutcomesInput | string[]
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  picture?: Prisma.StoredFileUpdateOneWithoutCoursePictureNestedInput
+  contents?: Prisma.CourseContentUpdateManyWithoutCourseNestedInput
+  enrollments?: Prisma.EnrollmentUpdateManyWithoutCourseNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseUncheckedUpdateWithoutQuestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  overview?: Prisma.StringFieldUpdateOperationsInput | string
+  learningOutcomes?: Prisma.CourseUpdatelearningOutcomesInput | string[]
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pictureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  contents?: Prisma.CourseContentUncheckedUpdateManyWithoutCourseNestedInput
+  enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseCreateWithoutAttemptsInput = {
+  id?: string
+  name: string
+  overview: string
+  learningOutcomes?: Prisma.CourseCreatelearningOutcomesInput | string[]
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requiresPreviousCertification?: boolean
+  difficulty: $Enums.Difficulty
+  isPublished?: boolean
+  passMark?: number | null
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  picture?: Prisma.StoredFileCreateNestedOneWithoutCoursePictureInput
+  contents?: Prisma.CourseContentCreateNestedManyWithoutCourseInput
+  enrollments?: Prisma.EnrollmentCreateNestedManyWithoutCourseInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutCourseInput
+}
+
+export type CourseUncheckedCreateWithoutAttemptsInput = {
+  id?: string
+  name: string
+  overview: string
+  learningOutcomes?: Prisma.CourseCreatelearningOutcomesInput | string[]
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requiresPreviousCertification?: boolean
+  difficulty: $Enums.Difficulty
+  isPublished?: boolean
+  passMark?: number | null
+  pictureFileId?: string | null
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  contents?: Prisma.CourseContentUncheckedCreateNestedManyWithoutCourseInput
+  enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutCourseInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCourseInput
+}
+
+export type CourseCreateOrConnectWithoutAttemptsInput = {
+  where: Prisma.CourseWhereUniqueInput
+  create: Prisma.XOR<Prisma.CourseCreateWithoutAttemptsInput, Prisma.CourseUncheckedCreateWithoutAttemptsInput>
+}
+
+export type CourseUpsertWithoutAttemptsInput = {
+  update: Prisma.XOR<Prisma.CourseUpdateWithoutAttemptsInput, Prisma.CourseUncheckedUpdateWithoutAttemptsInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutAttemptsInput, Prisma.CourseUncheckedCreateWithoutAttemptsInput>
+  where?: Prisma.CourseWhereInput
+}
+
+export type CourseUpdateToOneWithWhereWithoutAttemptsInput = {
+  where?: Prisma.CourseWhereInput
+  data: Prisma.XOR<Prisma.CourseUpdateWithoutAttemptsInput, Prisma.CourseUncheckedUpdateWithoutAttemptsInput>
+}
+
+export type CourseUpdateWithoutAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  overview?: Prisma.StringFieldUpdateOperationsInput | string
+  learningOutcomes?: Prisma.CourseUpdatelearningOutcomesInput | string[]
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  picture?: Prisma.StoredFileUpdateOneWithoutCoursePictureNestedInput
+  contents?: Prisma.CourseContentUpdateManyWithoutCourseNestedInput
+  enrollments?: Prisma.EnrollmentUpdateManyWithoutCourseNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseUncheckedUpdateWithoutAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  overview?: Prisma.StringFieldUpdateOperationsInput | string
+  learningOutcomes?: Prisma.CourseUpdatelearningOutcomesInput | string[]
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requiresPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passMark?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pictureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  contents?: Prisma.CourseContentUncheckedUpdateManyWithoutCourseNestedInput
+  enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 
@@ -860,11 +1158,15 @@ export type CourseUncheckedUpdateWithoutEnrollmentsInput = {
 export type CourseCountOutputType = {
   contents: number
   enrollments: number
+  questions: number
+  attempts: number
 }
 
 export type CourseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contents?: boolean | CourseCountOutputTypeCountContentsArgs
   enrollments?: boolean | CourseCountOutputTypeCountEnrollmentsArgs
+  questions?: boolean | CourseCountOutputTypeCountQuestionsArgs
+  attempts?: boolean | CourseCountOutputTypeCountAttemptsArgs
 }
 
 /**
@@ -891,6 +1193,20 @@ export type CourseCountOutputTypeCountEnrollmentsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.EnrollmentWhereInput
 }
 
+/**
+ * CourseCountOutputType without action
+ */
+export type CourseCountOutputTypeCountQuestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuestionWhereInput
+}
+
+/**
+ * CourseCountOutputType without action
+ */
+export type CourseCountOutputTypeCountAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssessmentAttemptWhereInput
+}
+
 
 export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -901,6 +1217,7 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   requiresPreviousCertification?: boolean
   difficulty?: boolean
   isPublished?: boolean
+  passMark?: boolean
   pictureFileId?: boolean
   createdById?: boolean
   createdAt?: boolean
@@ -908,6 +1225,8 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   picture?: boolean | Prisma.Course$pictureArgs<ExtArgs>
   contents?: boolean | Prisma.Course$contentsArgs<ExtArgs>
   enrollments?: boolean | Prisma.Course$enrollmentsArgs<ExtArgs>
+  questions?: boolean | Prisma.Course$questionsArgs<ExtArgs>
+  attempts?: boolean | Prisma.Course$attemptsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
@@ -920,6 +1239,7 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   requiresPreviousCertification?: boolean
   difficulty?: boolean
   isPublished?: boolean
+  passMark?: boolean
   pictureFileId?: boolean
   createdById?: boolean
   createdAt?: boolean
@@ -936,6 +1256,7 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   requiresPreviousCertification?: boolean
   difficulty?: boolean
   isPublished?: boolean
+  passMark?: boolean
   pictureFileId?: boolean
   createdById?: boolean
   createdAt?: boolean
@@ -952,17 +1273,20 @@ export type CourseSelectScalar = {
   requiresPreviousCertification?: boolean
   difficulty?: boolean
   isPublished?: boolean
+  passMark?: boolean
   pictureFileId?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "overview" | "learningOutcomes" | "price" | "requiresPreviousCertification" | "difficulty" | "isPublished" | "pictureFileId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "overview" | "learningOutcomes" | "price" | "requiresPreviousCertification" | "difficulty" | "isPublished" | "passMark" | "pictureFileId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   picture?: boolean | Prisma.Course$pictureArgs<ExtArgs>
   contents?: boolean | Prisma.Course$contentsArgs<ExtArgs>
   enrollments?: boolean | Prisma.Course$enrollmentsArgs<ExtArgs>
+  questions?: boolean | Prisma.Course$questionsArgs<ExtArgs>
+  attempts?: boolean | Prisma.Course$attemptsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CourseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -978,6 +1302,8 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     picture: Prisma.$StoredFilePayload<ExtArgs> | null
     contents: Prisma.$CourseContentPayload<ExtArgs>[]
     enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
+    questions: Prisma.$QuestionPayload<ExtArgs>[]
+    attempts: Prisma.$AssessmentAttemptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -988,6 +1314,7 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     requiresPreviousCertification: boolean
     difficulty: $Enums.Difficulty
     isPublished: boolean
+    passMark: number | null
     pictureFileId: string | null
     createdById: string | null
     createdAt: Date
@@ -1389,6 +1716,8 @@ export interface Prisma__CourseClient<T, Null = never, ExtArgs extends runtime.T
   picture<T extends Prisma.Course$pictureArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$pictureArgs<ExtArgs>>): Prisma.Prisma__StoredFileClient<runtime.Types.Result.GetResult<Prisma.$StoredFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   contents<T extends Prisma.Course$contentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$contentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   enrollments<T extends Prisma.Course$enrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  questions<T extends Prisma.Course$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attempts<T extends Prisma.Course$attemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssessmentAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1426,6 +1755,7 @@ export interface CourseFieldRefs {
   readonly requiresPreviousCertification: Prisma.FieldRef<"Course", 'Boolean'>
   readonly difficulty: Prisma.FieldRef<"Course", 'Difficulty'>
   readonly isPublished: Prisma.FieldRef<"Course", 'Boolean'>
+  readonly passMark: Prisma.FieldRef<"Course", 'Int'>
   readonly pictureFileId: Prisma.FieldRef<"Course", 'String'>
   readonly createdById: Prisma.FieldRef<"Course", 'String'>
   readonly createdAt: Prisma.FieldRef<"Course", 'DateTime'>
@@ -1895,6 +2225,54 @@ export type Course$enrollmentsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.EnrollmentScalarFieldEnum | Prisma.EnrollmentScalarFieldEnum[]
+}
+
+/**
+ * Course.questions
+ */
+export type Course$questionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Question
+   */
+  select?: Prisma.QuestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Question
+   */
+  omit?: Prisma.QuestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
+  where?: Prisma.QuestionWhereInput
+  orderBy?: Prisma.QuestionOrderByWithRelationInput | Prisma.QuestionOrderByWithRelationInput[]
+  cursor?: Prisma.QuestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuestionScalarFieldEnum | Prisma.QuestionScalarFieldEnum[]
+}
+
+/**
+ * Course.attempts
+ */
+export type Course$attemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AssessmentAttempt
+   */
+  select?: Prisma.AssessmentAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AssessmentAttempt
+   */
+  omit?: Prisma.AssessmentAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssessmentAttemptInclude<ExtArgs> | null
+  where?: Prisma.AssessmentAttemptWhereInput
+  orderBy?: Prisma.AssessmentAttemptOrderByWithRelationInput | Prisma.AssessmentAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.AssessmentAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssessmentAttemptScalarFieldEnum | Prisma.AssessmentAttemptScalarFieldEnum[]
 }
 
 /**

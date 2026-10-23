@@ -59,7 +59,11 @@ export const ModelName = {
   Course: 'Course',
   CourseContent: 'CourseContent',
   Enrollment: 'Enrollment',
-  ContentCompletion: 'ContentCompletion'
+  ContentCompletion: 'ContentCompletion',
+  PaymentSubmission: 'PaymentSubmission',
+  Question: 'Question',
+  QuestionOption: 'QuestionOption',
+  AssessmentAttempt: 'AssessmentAttempt'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -156,6 +160,7 @@ export const CourseScalarFieldEnum = {
   requiresPreviousCertification: 'requiresPreviousCertification',
   difficulty: 'difficulty',
   isPublished: 'isPublished',
+  passMark: 'passMark',
   pictureFileId: 'pictureFileId',
   createdById: 'createdById',
   createdAt: 'createdAt',
@@ -200,12 +205,74 @@ export const ContentCompletionScalarFieldEnum = {
 export type ContentCompletionScalarFieldEnum = (typeof ContentCompletionScalarFieldEnum)[keyof typeof ContentCompletionScalarFieldEnum]
 
 
+export const PaymentSubmissionScalarFieldEnum = {
+  id: 'id',
+  enrollmentId: 'enrollmentId',
+  payerName: 'payerName',
+  amountSent: 'amountSent',
+  expectedAmount: 'expectedAmount',
+  status: 'status',
+  rejectionReason: 'rejectionReason',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  reviewedById: 'reviewedById'
+} as const
+
+export type PaymentSubmissionScalarFieldEnum = (typeof PaymentSubmissionScalarFieldEnum)[keyof typeof PaymentSubmissionScalarFieldEnum]
+
+
+export const QuestionScalarFieldEnum = {
+  id: 'id',
+  courseId: 'courseId',
+  text: 'text',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typeof QuestionScalarFieldEnum]
+
+
+export const QuestionOptionScalarFieldEnum = {
+  id: 'id',
+  questionId: 'questionId',
+  text: 'text',
+  isCorrect: 'isCorrect',
+  position: 'position'
+} as const
+
+export type QuestionOptionScalarFieldEnum = (typeof QuestionOptionScalarFieldEnum)[keyof typeof QuestionOptionScalarFieldEnum]
+
+
+export const AssessmentAttemptScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  score: 'score',
+  correctCount: 'correctCount',
+  totalQuestions: 'totalQuestions',
+  passMark: 'passMark',
+  passed: 'passed',
+  voided: 'voided',
+  answers: 'answers',
+  submittedAt: 'submittedAt'
+} as const
+
+export type AssessmentAttemptScalarFieldEnum = (typeof AssessmentAttemptScalarFieldEnum)[keyof typeof AssessmentAttemptScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -222,4 +289,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

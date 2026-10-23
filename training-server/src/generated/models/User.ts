@@ -219,6 +219,7 @@ export type UserWhereInput = {
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   enrollments?: Prisma.EnrollmentListRelationFilter
   completions?: Prisma.ContentCompletionListRelationFilter
+  attempts?: Prisma.AssessmentAttemptListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -236,6 +237,7 @@ export type UserOrderByWithRelationInput = {
   profile?: Prisma.ProfileOrderByWithRelationInput
   enrollments?: Prisma.EnrollmentOrderByRelationAggregateInput
   completions?: Prisma.ContentCompletionOrderByRelationAggregateInput
+  attempts?: Prisma.AssessmentAttemptOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -256,6 +258,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   enrollments?: Prisma.EnrollmentListRelationFilter
   completions?: Prisma.ContentCompletionListRelationFilter
+  attempts?: Prisma.AssessmentAttemptListRelationFilter
 }, "id" | "email" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
@@ -303,6 +306,7 @@ export type UserCreateInput = {
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
   completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -320,6 +324,7 @@ export type UserUncheckedCreateInput = {
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
   completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -337,6 +342,7 @@ export type UserUpdateInput = {
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
   completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -354,6 +360,7 @@ export type UserUncheckedUpdateInput = {
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
   completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -527,6 +534,20 @@ export type UserUpdateOneRequiredWithoutCompletionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCompletionsInput, Prisma.UserUpdateWithoutCompletionsInput>, Prisma.UserUncheckedUpdateWithoutCompletionsInput>
 }
 
+export type UserCreateNestedOneWithoutAttemptsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAttemptsInput, Prisma.UserUncheckedCreateWithoutAttemptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAttemptsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAttemptsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAttemptsInput, Prisma.UserUncheckedCreateWithoutAttemptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAttemptsInput
+  upsert?: Prisma.UserUpsertWithoutAttemptsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAttemptsInput, Prisma.UserUpdateWithoutAttemptsInput>, Prisma.UserUncheckedUpdateWithoutAttemptsInput>
+}
+
 export type UserCreateWithoutRefreshTokensInput = {
   id?: string
   email: string
@@ -541,6 +562,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
   completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -557,6 +579,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
   completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -589,6 +612,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
   completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -605,6 +629,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
   completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutResetOtpsInput = {
@@ -621,6 +646,7 @@ export type UserCreateWithoutResetOtpsInput = {
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
   completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutResetOtpsInput = {
@@ -637,6 +663,7 @@ export type UserUncheckedCreateWithoutResetOtpsInput = {
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
   completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutResetOtpsInput = {
@@ -669,6 +696,7 @@ export type UserUpdateWithoutResetOtpsInput = {
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
   completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResetOtpsInput = {
@@ -685,6 +713,7 @@ export type UserUncheckedUpdateWithoutResetOtpsInput = {
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
   completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProfileInput = {
@@ -701,6 +730,7 @@ export type UserCreateWithoutProfileInput = {
   resetOtps?: Prisma.PasswordResetOtpCreateNestedManyWithoutUserInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
   completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -717,6 +747,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
   completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -749,6 +780,7 @@ export type UserUpdateWithoutProfileInput = {
   resetOtps?: Prisma.PasswordResetOtpUpdateManyWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
   completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -765,6 +797,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
   completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEnrollmentsInput = {
@@ -781,6 +814,7 @@ export type UserCreateWithoutEnrollmentsInput = {
   resetOtps?: Prisma.PasswordResetOtpCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEnrollmentsInput = {
@@ -797,6 +831,7 @@ export type UserUncheckedCreateWithoutEnrollmentsInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEnrollmentsInput = {
@@ -829,6 +864,7 @@ export type UserUpdateWithoutEnrollmentsInput = {
   resetOtps?: Prisma.PasswordResetOtpUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEnrollmentsInput = {
@@ -845,6 +881,7 @@ export type UserUncheckedUpdateWithoutEnrollmentsInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCompletionsInput = {
@@ -861,6 +898,7 @@ export type UserCreateWithoutCompletionsInput = {
   resetOtps?: Prisma.PasswordResetOtpCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCompletionsInput = {
@@ -877,6 +915,7 @@ export type UserUncheckedCreateWithoutCompletionsInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCompletionsInput = {
@@ -909,6 +948,7 @@ export type UserUpdateWithoutCompletionsInput = {
   resetOtps?: Prisma.PasswordResetOtpUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompletionsInput = {
@@ -925,6 +965,91 @@ export type UserUncheckedUpdateWithoutCompletionsInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAttemptsInput = {
+  id?: string
+  email: string
+  password?: string | null
+  authType?: $Enums.AuthMethod
+  role?: $Enums.Role
+  isActive?: boolean
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  resetOtps?: Prisma.PasswordResetOtpCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
+  completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAttemptsInput = {
+  id?: string
+  email: string
+  password?: string | null
+  authType?: $Enums.AuthMethod
+  role?: $Enums.Role
+  isActive?: boolean
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  resetOtps?: Prisma.PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
+  completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAttemptsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAttemptsInput, Prisma.UserUncheckedCreateWithoutAttemptsInput>
+}
+
+export type UserUpsertWithoutAttemptsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAttemptsInput, Prisma.UserUncheckedUpdateWithoutAttemptsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAttemptsInput, Prisma.UserUncheckedCreateWithoutAttemptsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAttemptsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAttemptsInput, Prisma.UserUncheckedUpdateWithoutAttemptsInput>
+}
+
+export type UserUpdateWithoutAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  resetOtps?: Prisma.PasswordResetOtpUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
+  completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  resetOtps?: Prisma.PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -937,6 +1062,7 @@ export type UserCountOutputType = {
   resetOtps: number
   enrollments: number
   completions: number
+  attempts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -944,6 +1070,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   resetOtps?: boolean | UserCountOutputTypeCountResetOtpsArgs
   enrollments?: boolean | UserCountOutputTypeCountEnrollmentsArgs
   completions?: boolean | UserCountOutputTypeCountCompletionsArgs
+  attempts?: boolean | UserCountOutputTypeCountAttemptsArgs
 }
 
 /**
@@ -984,6 +1111,13 @@ export type UserCountOutputTypeCountCompletionsArgs<ExtArgs extends runtime.Type
   where?: Prisma.ContentCompletionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssessmentAttemptWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1000,6 +1134,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   enrollments?: boolean | Prisma.User$enrollmentsArgs<ExtArgs>
   completions?: boolean | Prisma.User$completionsArgs<ExtArgs>
+  attempts?: boolean | Prisma.User$attemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1046,6 +1181,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   enrollments?: boolean | Prisma.User$enrollmentsArgs<ExtArgs>
   completions?: boolean | Prisma.User$completionsArgs<ExtArgs>
+  attempts?: boolean | Prisma.User$attemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1059,6 +1195,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     profile: Prisma.$ProfilePayload<ExtArgs> | null
     enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
     completions: Prisma.$ContentCompletionPayload<ExtArgs>[]
+    attempts: Prisma.$AssessmentAttemptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1469,6 +1606,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   enrollments<T extends Prisma.User$enrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   completions<T extends Prisma.User$completionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$completionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attempts<T extends Prisma.User$attemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssessmentAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2012,6 +2150,30 @@ export type User$completionsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.ContentCompletionScalarFieldEnum | Prisma.ContentCompletionScalarFieldEnum[]
+}
+
+/**
+ * User.attempts
+ */
+export type User$attemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AssessmentAttempt
+   */
+  select?: Prisma.AssessmentAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AssessmentAttempt
+   */
+  omit?: Prisma.AssessmentAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssessmentAttemptInclude<ExtArgs> | null
+  where?: Prisma.AssessmentAttemptWhereInput
+  orderBy?: Prisma.AssessmentAttemptOrderByWithRelationInput | Prisma.AssessmentAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.AssessmentAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssessmentAttemptScalarFieldEnum | Prisma.AssessmentAttemptScalarFieldEnum[]
 }
 
 /**

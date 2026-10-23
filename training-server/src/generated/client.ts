@@ -84,3 +84,23 @@ export type Enrollment = Prisma.EnrollmentModel
  * 
  */
 export type ContentCompletion = Prisma.ContentCompletionModel
+/**
+ * Model PaymentSubmission
+ * 
+ */
+export type PaymentSubmission = Prisma.PaymentSubmissionModel
+/**
+ * Model Question
+ * 
+ */
+export type Question = Prisma.QuestionModel
+/**
+ * Model QuestionOption
+ * 
+ */
+export type QuestionOption = Prisma.QuestionOptionModel
+/**
+ * Model AssessmentAttempt
+ * 
+ */
+export type AssessmentAttempt = Prisma.AssessmentAttemptModel

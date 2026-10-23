@@ -57,6 +57,7 @@ model User {
   profile       Profile?
   enrollments   Enrollment[]
   completions   ContentCompletion[]
+   attempts      AssessmentAttempt[]
 }
 
 model RefreshToken {
@@ -128,6 +129,7 @@ model Course {
   requiresPreviousCertification Boolean    @default(false)
   difficulty                    Difficulty
   isPublished                   Boolean    @default(false)
+  passMark                      Int? // percent (1-100), set when the assessment is finished
   pictureFileId                 String?    @unique
   picture                       StoredFile? @relation("CoursePicture", fields: [pictureFileId], references: [id], onDelete: SetNull)
   createdById                   String?
@@ -136,6 +138,8 @@ model Course {
 
   contents    CourseContent[]
   enrollments Enrollment[]
+  questions   Question[]
+  attempts    AssessmentAttempt[]
 
   @@index([isPublished])
 }
@@ -165,6 +169,7 @@ model Enrollment {
   paymentApprovedAt   DateTime?
   paymentApprovedById String?
   enrolledAt          DateTime      @default(now())
+  submissions         PaymentSubmission[]
 
   @@unique([userId, courseId])
   @@index([paymentStatus])
@@ -179,6 +184,67 @@ model ContentCompletion {
   completedAt DateTime      @default(now())
 
   @@id([userId, contentId])
+  @@index([userId, courseId])
+}
+
+// One row per "I have paid" a learner submits. Enrollment.paymentStatus stays the source of truth for access.
+model PaymentSubmission {
+  id              String        @id @default(uuid())
+  enrollmentId    String
+  enrollment      Enrollment    @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  payerName       String // name on the bank transfer
+  amountSent      Decimal       @db.Decimal(12, 2)
+  expectedAmount  Decimal       @db.Decimal(12, 2) // course price when submitted
+  status          PaymentStatus @default(PENDING) // PENDING | APPROVED | REJECTED
+  rejectionReason String?
+  submittedAt     DateTime      @default(now())
+  reviewedAt      DateTime?
+  reviewedById    String?
+
+  @@index([enrollmentId])
+  @@index([status])
+}
+
+// Multiple choice: every question has exactly 4 options, exactly one correct
+model Question {
+  id        String           @id @default(uuid())
+  courseId  String
+  course    Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  text      String
+  position  Int
+  createdAt DateTime         @default(now())
+  options   QuestionOption[]
+
+  @@index([courseId])
+}
+
+model QuestionOption {
+  id         String   @id @default(uuid())
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  text       String
+  isCorrect  Boolean  @default(false)
+  position   Int
+
+  @@index([questionId])
+}
+
+// Results are stored as a summary, so editing or deleting questions later never changes past scores
+model AssessmentAttempt {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId       String
+  course         Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  score          Int // percent
+  correctCount   Int
+  totalQuestions Int
+  passMark       Int // the pass mark in force when this was submitted
+  passed         Boolean
+  voided         Boolean  @default(false) // set by an admin reset: stops counting towards the attempt limit
+  answers        Json
+  submittedAt    DateTime @default(now())
+
   @@index([userId, courseId])
 }
 

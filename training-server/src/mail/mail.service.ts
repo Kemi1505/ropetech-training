@@ -6,6 +6,8 @@ import type { Transporter } from 'nodemailer';
 const escapeHtml = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
+const oneLine = (s: string) => s.replace(/[\r\n]+/g, ' ').trim();
+
 interface MailOptions {
   to: string;
   subject: string;
@@ -63,6 +65,84 @@ export class MailService {
         <p>You have a new enquiry from ${escapeHtml(name)}</p>
         <p><b>Email:</b> ${escapeHtml(e.email)}</p>
         <p style="white-space:pre-wrap">${escapeHtml(e.text)}</p>
+      </div>`,
+    });
+  }
+
+  
+  /** Sent to ADMIN_PAYMENT_EMAIL (falls back to ADMIN_ENQUIRY_EMAIL) when a learner says they have paid. */
+  async sendPaymentSubmitted(p: {
+    learnerName: string;
+    learnerEmail: string;
+    courseName: string;
+    payerName: string;
+    amountSent: string;
+    expectedAmount: string;
+  }) {
+    const to = this.config.get<string>('ADMIN_PAYMENT_EMAIL') ?? this.config.getOrThrow<string>('ADMIN_ENQUIRY_EMAIL');
+    const clean = (s: string) => s.replace(/[\r\n]+/g, ' ').trim();
+    const rows: [string, string][] = [
+      ['Learner', `${clean(p.learnerName)} (${p.learnerEmail})`],
+      ['Course', clean(p.courseName)],
+      ['Name on transfer', clean(p.payerName)],
+      ['Amount sent', p.amountSent],
+      ['Course price', p.expectedAmount],
+    ];
+    await this.send({
+      to,
+      replyTo: p.learnerEmail,
+      subject: `Payment submitted: ${clean(p.courseName)}`,
+      text: `${rows.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\nCheck your bank account, then approve or reject it on the admin payments page.`,
+      html: `
+      <div style="font-family:Arial,sans-serif;max-width:560px">
+        <h2>Payment submitted</h2>
+        <table cellpadding="6" style="border-collapse:collapse">
+          ${rows.map(([k, v]) => `<tr><td><b>${escapeHtml(k)}</b></td><td>${escapeHtml(v)}</td></tr>`).join('')}
+        </table>
+        <p>Check your bank account, then approve or reject it on the admin payments page.</p>
+      </div>`,
+    });
+  }
+
+  /** To the learner, at the address stored in the database. */
+  async sendPaymentApproved(p: { to: string; firstName: string | null; courseName: string; courseUrl: string }) {
+    const hi = p.firstName ? `Hi ${oneLine(p.firstName)},` : 'Hello,';
+    const course = oneLine(p.courseName);
+    await this.send({
+      to: p.to,
+      subject: `Payment approved: ${course}`,
+      text: `${hi}\n\nYour payment for "${course}" has been approved. You can start learning now:\n${p.courseUrl}\n`,
+      html: `
+      <div style="font-family:Arial,sans-serif;max-width:480px">
+        <h2>Payment approved</h2>
+        <p>${escapeHtml(hi)}</p>
+        <p>Your payment for <b>${escapeHtml(course)}</b> has been approved. You can start learning now.</p>
+        <p><a href="${escapeHtml(p.courseUrl)}">Open the course</a></p>
+      </div>`,
+    });
+  }
+
+  async sendPaymentRejected(p: {
+    to: string;
+    firstName: string | null;
+    courseName: string;
+    courseUrl: string;
+    reason: string | null;
+  }) {
+    const hi = p.firstName ? `Hi ${oneLine(p.firstName)},` : 'Hello,';
+    const course = oneLine(p.courseName);
+    const reason = p.reason ? oneLine(p.reason) : null;
+    await this.send({
+      to: p.to,
+      subject: `Payment not approved: ${course}`,
+      text: `${hi}\n\nWe could not approve your payment for "${course}".${reason ? `\nReason: ${reason}` : ''}\n\nPlease check the details and submit your payment again:\n${p.courseUrl}\n`,
+      html: `
+      <div style="font-family:Arial,sans-serif;max-width:480px">
+        <h2>Payment not approved</h2>
+        <p>${escapeHtml(hi)}</p>
+        <p>We could not approve your payment for <b>${escapeHtml(course)}</b>.</p>
+        ${reason ? `<p><b>Reason:</b> ${escapeHtml(reason)}</p>` : ''}
+        <p>Please check the details and <a href="${escapeHtml(p.courseUrl)}">submit your payment again</a>.</p>
       </div>`,
     });
   }

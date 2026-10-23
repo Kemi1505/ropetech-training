@@ -17,6 +17,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { EnquiryModule } from './enquiry/enquiry.module';
 import { FilesModule } from './files/files.module';
 import { ProfileModule } from './profile/profile.module';
+import { AssessmentModule } from './assessment/assessment.module';
+import { PaymentsModule } from './payments/payments.module';
 
 const REQUIRED_ENV = [
   'DATABASE_URL',
@@ -29,6 +31,9 @@ const REQUIRED_ENV = [
   'GOOGLE_CLIENT_SECRET',
   'GOOGLE_CALLBACK_URL',
   'ADMIN_ENQUIRY_EMAIL',
+  'PAYMENT_BANK_NAME',
+  'PAYMENT_ACCOUNT_NUMBER',
+  'PAYMENT_ACCOUNT_NAME',
 ];
 
 @Module({
@@ -53,6 +58,8 @@ const REQUIRED_ENV = [
     EnquiryModule,
     FilesModule,
     ProfileModule,
+    AssessmentModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [
