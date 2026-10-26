@@ -32,6 +32,8 @@ export type EnrollmentMinAggregateOutputType = {
   paymentApprovedAt: Date | null
   paymentApprovedById: string | null
   enrolledAt: Date | null
+  lastOpenedAt: Date | null
+  lastLessonId: string | null
 }
 
 export type EnrollmentMaxAggregateOutputType = {
@@ -42,6 +44,8 @@ export type EnrollmentMaxAggregateOutputType = {
   paymentApprovedAt: Date | null
   paymentApprovedById: string | null
   enrolledAt: Date | null
+  lastOpenedAt: Date | null
+  lastLessonId: string | null
 }
 
 export type EnrollmentCountAggregateOutputType = {
@@ -52,6 +56,8 @@ export type EnrollmentCountAggregateOutputType = {
   paymentApprovedAt: number
   paymentApprovedById: number
   enrolledAt: number
+  lastOpenedAt: number
+  lastLessonId: number
   _all: number
 }
 
@@ -64,6 +70,8 @@ export type EnrollmentMinAggregateInputType = {
   paymentApprovedAt?: true
   paymentApprovedById?: true
   enrolledAt?: true
+  lastOpenedAt?: true
+  lastLessonId?: true
 }
 
 export type EnrollmentMaxAggregateInputType = {
@@ -74,6 +82,8 @@ export type EnrollmentMaxAggregateInputType = {
   paymentApprovedAt?: true
   paymentApprovedById?: true
   enrolledAt?: true
+  lastOpenedAt?: true
+  lastLessonId?: true
 }
 
 export type EnrollmentCountAggregateInputType = {
@@ -84,6 +94,8 @@ export type EnrollmentCountAggregateInputType = {
   paymentApprovedAt?: true
   paymentApprovedById?: true
   enrolledAt?: true
+  lastOpenedAt?: true
+  lastLessonId?: true
   _all?: true
 }
 
@@ -167,6 +179,8 @@ export type EnrollmentGroupByOutputType = {
   paymentApprovedAt: Date | null
   paymentApprovedById: string | null
   enrolledAt: Date
+  lastOpenedAt: Date | null
+  lastLessonId: string | null
   _count: EnrollmentCountAggregateOutputType | null
   _min: EnrollmentMinAggregateOutputType | null
   _max: EnrollmentMaxAggregateOutputType | null
@@ -198,6 +212,8 @@ export type EnrollmentWhereInput = {
   paymentApprovedAt?: Prisma.DateTimeNullableFilter<"Enrollment"> | Date | string | null
   paymentApprovedById?: Prisma.StringNullableFilter<"Enrollment"> | string | null
   enrolledAt?: Prisma.DateTimeFilter<"Enrollment"> | Date | string
+  lastOpenedAt?: Prisma.DateTimeNullableFilter<"Enrollment"> | Date | string | null
+  lastLessonId?: Prisma.StringNullableFilter<"Enrollment"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   submissions?: Prisma.PaymentSubmissionListRelationFilter
@@ -211,6 +227,8 @@ export type EnrollmentOrderByWithRelationInput = {
   paymentApprovedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentApprovedById?: Prisma.SortOrderInput | Prisma.SortOrder
   enrolledAt?: Prisma.SortOrder
+  lastOpenedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastLessonId?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   course?: Prisma.CourseOrderByWithRelationInput
   submissions?: Prisma.PaymentSubmissionOrderByRelationAggregateInput
@@ -228,6 +246,8 @@ export type EnrollmentWhereUniqueInput = Prisma.AtLeast<{
   paymentApprovedAt?: Prisma.DateTimeNullableFilter<"Enrollment"> | Date | string | null
   paymentApprovedById?: Prisma.StringNullableFilter<"Enrollment"> | string | null
   enrolledAt?: Prisma.DateTimeFilter<"Enrollment"> | Date | string
+  lastOpenedAt?: Prisma.DateTimeNullableFilter<"Enrollment"> | Date | string | null
+  lastLessonId?: Prisma.StringNullableFilter<"Enrollment"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   submissions?: Prisma.PaymentSubmissionListRelationFilter
@@ -241,6 +261,8 @@ export type EnrollmentOrderByWithAggregationInput = {
   paymentApprovedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentApprovedById?: Prisma.SortOrderInput | Prisma.SortOrder
   enrolledAt?: Prisma.SortOrder
+  lastOpenedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastLessonId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.EnrollmentCountOrderByAggregateInput
   _max?: Prisma.EnrollmentMaxOrderByAggregateInput
   _min?: Prisma.EnrollmentMinOrderByAggregateInput
@@ -257,6 +279,8 @@ export type EnrollmentScalarWhereWithAggregatesInput = {
   paymentApprovedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Enrollment"> | Date | string | null
   paymentApprovedById?: Prisma.StringNullableWithAggregatesFilter<"Enrollment"> | string | null
   enrolledAt?: Prisma.DateTimeWithAggregatesFilter<"Enrollment"> | Date | string
+  lastOpenedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Enrollment"> | Date | string | null
+  lastLessonId?: Prisma.StringNullableWithAggregatesFilter<"Enrollment"> | string | null
 }
 
 export type EnrollmentCreateInput = {
@@ -265,6 +289,8 @@ export type EnrollmentCreateInput = {
   paymentApprovedAt?: Date | string | null
   paymentApprovedById?: string | null
   enrolledAt?: Date | string
+  lastOpenedAt?: Date | string | null
+  lastLessonId?: string | null
   user: Prisma.UserCreateNestedOneWithoutEnrollmentsInput
   course: Prisma.CourseCreateNestedOneWithoutEnrollmentsInput
   submissions?: Prisma.PaymentSubmissionCreateNestedManyWithoutEnrollmentInput
@@ -278,6 +304,8 @@ export type EnrollmentUncheckedCreateInput = {
   paymentApprovedAt?: Date | string | null
   paymentApprovedById?: string | null
   enrolledAt?: Date | string
+  lastOpenedAt?: Date | string | null
+  lastLessonId?: string | null
   submissions?: Prisma.PaymentSubmissionUncheckedCreateNestedManyWithoutEnrollmentInput
 }
 
@@ -287,6 +315,8 @@ export type EnrollmentUpdateInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutEnrollmentsNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutEnrollmentsNestedInput
   submissions?: Prisma.PaymentSubmissionUpdateManyWithoutEnrollmentNestedInput
@@ -300,6 +330,8 @@ export type EnrollmentUncheckedUpdateInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submissions?: Prisma.PaymentSubmissionUncheckedUpdateManyWithoutEnrollmentNestedInput
 }
 
@@ -311,6 +343,8 @@ export type EnrollmentCreateManyInput = {
   paymentApprovedAt?: Date | string | null
   paymentApprovedById?: string | null
   enrolledAt?: Date | string
+  lastOpenedAt?: Date | string | null
+  lastLessonId?: string | null
 }
 
 export type EnrollmentUpdateManyMutationInput = {
@@ -319,6 +353,8 @@ export type EnrollmentUpdateManyMutationInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EnrollmentUncheckedUpdateManyInput = {
@@ -329,6 +365,8 @@ export type EnrollmentUncheckedUpdateManyInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EnrollmentListRelationFilter = {
@@ -354,6 +392,8 @@ export type EnrollmentCountOrderByAggregateInput = {
   paymentApprovedAt?: Prisma.SortOrder
   paymentApprovedById?: Prisma.SortOrder
   enrolledAt?: Prisma.SortOrder
+  lastOpenedAt?: Prisma.SortOrder
+  lastLessonId?: Prisma.SortOrder
 }
 
 export type EnrollmentMaxOrderByAggregateInput = {
@@ -364,6 +404,8 @@ export type EnrollmentMaxOrderByAggregateInput = {
   paymentApprovedAt?: Prisma.SortOrder
   paymentApprovedById?: Prisma.SortOrder
   enrolledAt?: Prisma.SortOrder
+  lastOpenedAt?: Prisma.SortOrder
+  lastLessonId?: Prisma.SortOrder
 }
 
 export type EnrollmentMinOrderByAggregateInput = {
@@ -374,6 +416,8 @@ export type EnrollmentMinOrderByAggregateInput = {
   paymentApprovedAt?: Prisma.SortOrder
   paymentApprovedById?: Prisma.SortOrder
   enrolledAt?: Prisma.SortOrder
+  lastOpenedAt?: Prisma.SortOrder
+  lastLessonId?: Prisma.SortOrder
 }
 
 export type EnrollmentScalarRelationFilter = {
@@ -489,6 +533,8 @@ export type EnrollmentCreateWithoutUserInput = {
   paymentApprovedAt?: Date | string | null
   paymentApprovedById?: string | null
   enrolledAt?: Date | string
+  lastOpenedAt?: Date | string | null
+  lastLessonId?: string | null
   course: Prisma.CourseCreateNestedOneWithoutEnrollmentsInput
   submissions?: Prisma.PaymentSubmissionCreateNestedManyWithoutEnrollmentInput
 }
@@ -500,6 +546,8 @@ export type EnrollmentUncheckedCreateWithoutUserInput = {
   paymentApprovedAt?: Date | string | null
   paymentApprovedById?: string | null
   enrolledAt?: Date | string
+  lastOpenedAt?: Date | string | null
+  lastLessonId?: string | null
   submissions?: Prisma.PaymentSubmissionUncheckedCreateNestedManyWithoutEnrollmentInput
 }
 
@@ -540,6 +588,8 @@ export type EnrollmentScalarWhereInput = {
   paymentApprovedAt?: Prisma.DateTimeNullableFilter<"Enrollment"> | Date | string | null
   paymentApprovedById?: Prisma.StringNullableFilter<"Enrollment"> | string | null
   enrolledAt?: Prisma.DateTimeFilter<"Enrollment"> | Date | string
+  lastOpenedAt?: Prisma.DateTimeNullableFilter<"Enrollment"> | Date | string | null
+  lastLessonId?: Prisma.StringNullableFilter<"Enrollment"> | string | null
 }
 
 export type EnrollmentCreateWithoutCourseInput = {
@@ -548,6 +598,8 @@ export type EnrollmentCreateWithoutCourseInput = {
   paymentApprovedAt?: Date | string | null
   paymentApprovedById?: string | null
   enrolledAt?: Date | string
+  lastOpenedAt?: Date | string | null
+  lastLessonId?: string | null
   user: Prisma.UserCreateNestedOneWithoutEnrollmentsInput
   submissions?: Prisma.PaymentSubmissionCreateNestedManyWithoutEnrollmentInput
 }
@@ -559,6 +611,8 @@ export type EnrollmentUncheckedCreateWithoutCourseInput = {
   paymentApprovedAt?: Date | string | null
   paymentApprovedById?: string | null
   enrolledAt?: Date | string
+  lastOpenedAt?: Date | string | null
+  lastLessonId?: string | null
   submissions?: Prisma.PaymentSubmissionUncheckedCreateNestedManyWithoutEnrollmentInput
 }
 
@@ -594,6 +648,8 @@ export type EnrollmentCreateWithoutSubmissionsInput = {
   paymentApprovedAt?: Date | string | null
   paymentApprovedById?: string | null
   enrolledAt?: Date | string
+  lastOpenedAt?: Date | string | null
+  lastLessonId?: string | null
   user: Prisma.UserCreateNestedOneWithoutEnrollmentsInput
   course: Prisma.CourseCreateNestedOneWithoutEnrollmentsInput
 }
@@ -606,6 +662,8 @@ export type EnrollmentUncheckedCreateWithoutSubmissionsInput = {
   paymentApprovedAt?: Date | string | null
   paymentApprovedById?: string | null
   enrolledAt?: Date | string
+  lastOpenedAt?: Date | string | null
+  lastLessonId?: string | null
 }
 
 export type EnrollmentCreateOrConnectWithoutSubmissionsInput = {
@@ -630,6 +688,8 @@ export type EnrollmentUpdateWithoutSubmissionsInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutEnrollmentsNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutEnrollmentsNestedInput
 }
@@ -642,6 +702,8 @@ export type EnrollmentUncheckedUpdateWithoutSubmissionsInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EnrollmentCreateManyUserInput = {
@@ -651,6 +713,8 @@ export type EnrollmentCreateManyUserInput = {
   paymentApprovedAt?: Date | string | null
   paymentApprovedById?: string | null
   enrolledAt?: Date | string
+  lastOpenedAt?: Date | string | null
+  lastLessonId?: string | null
 }
 
 export type EnrollmentUpdateWithoutUserInput = {
@@ -659,6 +723,8 @@ export type EnrollmentUpdateWithoutUserInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course?: Prisma.CourseUpdateOneRequiredWithoutEnrollmentsNestedInput
   submissions?: Prisma.PaymentSubmissionUpdateManyWithoutEnrollmentNestedInput
 }
@@ -670,6 +736,8 @@ export type EnrollmentUncheckedUpdateWithoutUserInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submissions?: Prisma.PaymentSubmissionUncheckedUpdateManyWithoutEnrollmentNestedInput
 }
 
@@ -680,6 +748,8 @@ export type EnrollmentUncheckedUpdateManyWithoutUserInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EnrollmentCreateManyCourseInput = {
@@ -689,6 +759,8 @@ export type EnrollmentCreateManyCourseInput = {
   paymentApprovedAt?: Date | string | null
   paymentApprovedById?: string | null
   enrolledAt?: Date | string
+  lastOpenedAt?: Date | string | null
+  lastLessonId?: string | null
 }
 
 export type EnrollmentUpdateWithoutCourseInput = {
@@ -697,6 +769,8 @@ export type EnrollmentUpdateWithoutCourseInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutEnrollmentsNestedInput
   submissions?: Prisma.PaymentSubmissionUpdateManyWithoutEnrollmentNestedInput
 }
@@ -708,6 +782,8 @@ export type EnrollmentUncheckedUpdateWithoutCourseInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submissions?: Prisma.PaymentSubmissionUncheckedUpdateManyWithoutEnrollmentNestedInput
 }
 
@@ -718,6 +794,8 @@ export type EnrollmentUncheckedUpdateManyWithoutCourseInput = {
   paymentApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentApprovedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastOpenedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLessonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -759,6 +837,8 @@ export type EnrollmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   paymentApprovedAt?: boolean
   paymentApprovedById?: boolean
   enrolledAt?: boolean
+  lastOpenedAt?: boolean
+  lastLessonId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   submissions?: boolean | Prisma.Enrollment$submissionsArgs<ExtArgs>
@@ -773,6 +853,8 @@ export type EnrollmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   paymentApprovedAt?: boolean
   paymentApprovedById?: boolean
   enrolledAt?: boolean
+  lastOpenedAt?: boolean
+  lastLessonId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["enrollment"]>
@@ -785,6 +867,8 @@ export type EnrollmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   paymentApprovedAt?: boolean
   paymentApprovedById?: boolean
   enrolledAt?: boolean
+  lastOpenedAt?: boolean
+  lastLessonId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["enrollment"]>
@@ -797,9 +881,11 @@ export type EnrollmentSelectScalar = {
   paymentApprovedAt?: boolean
   paymentApprovedById?: boolean
   enrolledAt?: boolean
+  lastOpenedAt?: boolean
+  lastLessonId?: boolean
 }
 
-export type EnrollmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "courseId" | "paymentStatus" | "paymentApprovedAt" | "paymentApprovedById" | "enrolledAt", ExtArgs["result"]["enrollment"]>
+export type EnrollmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "courseId" | "paymentStatus" | "paymentApprovedAt" | "paymentApprovedById" | "enrolledAt" | "lastOpenedAt" | "lastLessonId", ExtArgs["result"]["enrollment"]>
 export type EnrollmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
@@ -830,6 +916,8 @@ export type $EnrollmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     paymentApprovedAt: Date | null
     paymentApprovedById: string | null
     enrolledAt: Date
+    lastOpenedAt: Date | null
+    lastLessonId: string | null
   }, ExtArgs["result"]["enrollment"]>
   composites: {}
 }
@@ -1263,6 +1351,8 @@ export interface EnrollmentFieldRefs {
   readonly paymentApprovedAt: Prisma.FieldRef<"Enrollment", 'DateTime'>
   readonly paymentApprovedById: Prisma.FieldRef<"Enrollment", 'String'>
   readonly enrolledAt: Prisma.FieldRef<"Enrollment", 'DateTime'>
+  readonly lastOpenedAt: Prisma.FieldRef<"Enrollment", 'DateTime'>
+  readonly lastLessonId: Prisma.FieldRef<"Enrollment", 'String'>
 }
     
 

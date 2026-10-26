@@ -34,6 +34,8 @@ export type ProfileMinAggregateOutputType = {
   hasPreviousCertification: boolean | null
   certificationApproved: boolean | null
   certificationApprovedAt: Date | null
+  certificationRejectionReason: string | null
+  certificationRejectedAt: Date | null
   pictureFileId: string | null
   certificationFileId: string | null
   createdAt: Date | null
@@ -50,6 +52,8 @@ export type ProfileMaxAggregateOutputType = {
   hasPreviousCertification: boolean | null
   certificationApproved: boolean | null
   certificationApprovedAt: Date | null
+  certificationRejectionReason: string | null
+  certificationRejectedAt: Date | null
   pictureFileId: string | null
   certificationFileId: string | null
   createdAt: Date | null
@@ -66,6 +70,8 @@ export type ProfileCountAggregateOutputType = {
   hasPreviousCertification: number
   certificationApproved: number
   certificationApprovedAt: number
+  certificationRejectionReason: number
+  certificationRejectedAt: number
   pictureFileId: number
   certificationFileId: number
   createdAt: number
@@ -84,6 +90,8 @@ export type ProfileMinAggregateInputType = {
   hasPreviousCertification?: true
   certificationApproved?: true
   certificationApprovedAt?: true
+  certificationRejectionReason?: true
+  certificationRejectedAt?: true
   pictureFileId?: true
   certificationFileId?: true
   createdAt?: true
@@ -100,6 +108,8 @@ export type ProfileMaxAggregateInputType = {
   hasPreviousCertification?: true
   certificationApproved?: true
   certificationApprovedAt?: true
+  certificationRejectionReason?: true
+  certificationRejectedAt?: true
   pictureFileId?: true
   certificationFileId?: true
   createdAt?: true
@@ -116,6 +126,8 @@ export type ProfileCountAggregateInputType = {
   hasPreviousCertification?: true
   certificationApproved?: true
   certificationApprovedAt?: true
+  certificationRejectionReason?: true
+  certificationRejectedAt?: true
   pictureFileId?: true
   certificationFileId?: true
   createdAt?: true
@@ -205,6 +217,8 @@ export type ProfileGroupByOutputType = {
   hasPreviousCertification: boolean
   certificationApproved: boolean
   certificationApprovedAt: Date | null
+  certificationRejectionReason: string | null
+  certificationRejectedAt: Date | null
   pictureFileId: string | null
   certificationFileId: string | null
   createdAt: Date
@@ -242,6 +256,8 @@ export type ProfileWhereInput = {
   hasPreviousCertification?: Prisma.BoolFilter<"Profile"> | boolean
   certificationApproved?: Prisma.BoolFilter<"Profile"> | boolean
   certificationApprovedAt?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
+  certificationRejectionReason?: Prisma.StringNullableFilter<"Profile"> | string | null
+  certificationRejectedAt?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
   pictureFileId?: Prisma.StringNullableFilter<"Profile"> | string | null
   certificationFileId?: Prisma.StringNullableFilter<"Profile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
@@ -261,6 +277,8 @@ export type ProfileOrderByWithRelationInput = {
   hasPreviousCertification?: Prisma.SortOrder
   certificationApproved?: Prisma.SortOrder
   certificationApprovedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  certificationRejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  certificationRejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   pictureFileId?: Prisma.SortOrderInput | Prisma.SortOrder
   certificationFileId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -285,6 +303,8 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   hasPreviousCertification?: Prisma.BoolFilter<"Profile"> | boolean
   certificationApproved?: Prisma.BoolFilter<"Profile"> | boolean
   certificationApprovedAt?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
+  certificationRejectionReason?: Prisma.StringNullableFilter<"Profile"> | string | null
+  certificationRejectedAt?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -302,6 +322,8 @@ export type ProfileOrderByWithAggregationInput = {
   hasPreviousCertification?: Prisma.SortOrder
   certificationApproved?: Prisma.SortOrder
   certificationApprovedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  certificationRejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  certificationRejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   pictureFileId?: Prisma.SortOrderInput | Prisma.SortOrder
   certificationFileId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -324,6 +346,8 @@ export type ProfileScalarWhereWithAggregatesInput = {
   hasPreviousCertification?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
   certificationApproved?: Prisma.BoolWithAggregatesFilter<"Profile"> | boolean
   certificationApprovedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Profile"> | Date | string | null
+  certificationRejectionReason?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  certificationRejectedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Profile"> | Date | string | null
   pictureFileId?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   certificationFileId?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Profile"> | Date | string
@@ -339,6 +363,8 @@ export type ProfileCreateInput = {
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: Date | string | null
+  certificationRejectionReason?: string | null
+  certificationRejectedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProfileInput
@@ -356,6 +382,8 @@ export type ProfileUncheckedCreateInput = {
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: Date | string | null
+  certificationRejectionReason?: string | null
+  certificationRejectedAt?: Date | string | null
   pictureFileId?: string | null
   certificationFileId?: string | null
   createdAt?: Date | string
@@ -371,6 +399,8 @@ export type ProfileUpdateInput = {
   hasPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  certificationRejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certificationRejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProfileNestedInput
@@ -388,6 +418,8 @@ export type ProfileUncheckedUpdateInput = {
   hasPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  certificationRejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certificationRejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pictureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certificationFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -404,6 +436,8 @@ export type ProfileCreateManyInput = {
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: Date | string | null
+  certificationRejectionReason?: string | null
+  certificationRejectedAt?: Date | string | null
   pictureFileId?: string | null
   certificationFileId?: string | null
   createdAt?: Date | string
@@ -419,6 +453,8 @@ export type ProfileUpdateManyMutationInput = {
   hasPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  certificationRejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certificationRejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -433,6 +469,8 @@ export type ProfileUncheckedUpdateManyInput = {
   hasPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  certificationRejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certificationRejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pictureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certificationFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -454,6 +492,8 @@ export type ProfileCountOrderByAggregateInput = {
   hasPreviousCertification?: Prisma.SortOrder
   certificationApproved?: Prisma.SortOrder
   certificationApprovedAt?: Prisma.SortOrder
+  certificationRejectionReason?: Prisma.SortOrder
+  certificationRejectedAt?: Prisma.SortOrder
   pictureFileId?: Prisma.SortOrder
   certificationFileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -470,6 +510,8 @@ export type ProfileMaxOrderByAggregateInput = {
   hasPreviousCertification?: Prisma.SortOrder
   certificationApproved?: Prisma.SortOrder
   certificationApprovedAt?: Prisma.SortOrder
+  certificationRejectionReason?: Prisma.SortOrder
+  certificationRejectedAt?: Prisma.SortOrder
   pictureFileId?: Prisma.SortOrder
   certificationFileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -486,6 +528,8 @@ export type ProfileMinOrderByAggregateInput = {
   hasPreviousCertification?: Prisma.SortOrder
   certificationApproved?: Prisma.SortOrder
   certificationApprovedAt?: Prisma.SortOrder
+  certificationRejectionReason?: Prisma.SortOrder
+  certificationRejectedAt?: Prisma.SortOrder
   pictureFileId?: Prisma.SortOrder
   certificationFileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -601,6 +645,8 @@ export type ProfileCreateWithoutUserInput = {
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: Date | string | null
+  certificationRejectionReason?: string | null
+  certificationRejectedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   picture?: Prisma.StoredFileCreateNestedOneWithoutProfilePictureInput
@@ -616,6 +662,8 @@ export type ProfileUncheckedCreateWithoutUserInput = {
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: Date | string | null
+  certificationRejectionReason?: string | null
+  certificationRejectedAt?: Date | string | null
   pictureFileId?: string | null
   certificationFileId?: string | null
   createdAt?: Date | string
@@ -647,6 +695,8 @@ export type ProfileUpdateWithoutUserInput = {
   hasPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  certificationRejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certificationRejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   picture?: Prisma.StoredFileUpdateOneWithoutProfilePictureNestedInput
@@ -662,6 +712,8 @@ export type ProfileUncheckedUpdateWithoutUserInput = {
   hasPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  certificationRejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certificationRejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pictureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   certificationFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -677,6 +729,8 @@ export type ProfileCreateWithoutPictureInput = {
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: Date | string | null
+  certificationRejectionReason?: string | null
+  certificationRejectedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProfileInput
@@ -693,6 +747,8 @@ export type ProfileUncheckedCreateWithoutPictureInput = {
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: Date | string | null
+  certificationRejectionReason?: string | null
+  certificationRejectedAt?: Date | string | null
   certificationFileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -712,6 +768,8 @@ export type ProfileCreateWithoutCertificationFileInput = {
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: Date | string | null
+  certificationRejectionReason?: string | null
+  certificationRejectedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProfileInput
@@ -728,6 +786,8 @@ export type ProfileUncheckedCreateWithoutCertificationFileInput = {
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: Date | string | null
+  certificationRejectionReason?: string | null
+  certificationRejectedAt?: Date | string | null
   pictureFileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -758,6 +818,8 @@ export type ProfileUpdateWithoutPictureInput = {
   hasPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  certificationRejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certificationRejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProfileNestedInput
@@ -774,6 +836,8 @@ export type ProfileUncheckedUpdateWithoutPictureInput = {
   hasPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  certificationRejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certificationRejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   certificationFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -799,6 +863,8 @@ export type ProfileUpdateWithoutCertificationFileInput = {
   hasPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  certificationRejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certificationRejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProfileNestedInput
@@ -815,6 +881,8 @@ export type ProfileUncheckedUpdateWithoutCertificationFileInput = {
   hasPreviousCertification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   certificationApprovedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  certificationRejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certificationRejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pictureFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -832,6 +900,8 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: boolean
+  certificationRejectionReason?: boolean
+  certificationRejectedAt?: boolean
   pictureFileId?: boolean
   certificationFileId?: boolean
   createdAt?: boolean
@@ -851,6 +921,8 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: boolean
+  certificationRejectionReason?: boolean
+  certificationRejectedAt?: boolean
   pictureFileId?: boolean
   certificationFileId?: boolean
   createdAt?: boolean
@@ -870,6 +942,8 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: boolean
+  certificationRejectionReason?: boolean
+  certificationRejectedAt?: boolean
   pictureFileId?: boolean
   certificationFileId?: boolean
   createdAt?: boolean
@@ -889,13 +963,15 @@ export type ProfileSelectScalar = {
   hasPreviousCertification?: boolean
   certificationApproved?: boolean
   certificationApprovedAt?: boolean
+  certificationRejectionReason?: boolean
+  certificationRejectedAt?: boolean
   pictureFileId?: boolean
   certificationFileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "phone" | "company" | "hasPreviousCertification" | "certificationApproved" | "certificationApprovedAt" | "pictureFileId" | "certificationFileId" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "phone" | "company" | "hasPreviousCertification" | "certificationApproved" | "certificationApprovedAt" | "certificationRejectionReason" | "certificationRejectedAt" | "pictureFileId" | "certificationFileId" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
 export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   picture?: boolean | Prisma.Profile$pictureArgs<ExtArgs>
@@ -929,6 +1005,8 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     hasPreviousCertification: boolean
     certificationApproved: boolean
     certificationApprovedAt: Date | null
+    certificationRejectionReason: string | null
+    certificationRejectedAt: Date | null
     pictureFileId: string | null
     certificationFileId: string | null
     createdAt: Date
@@ -1368,6 +1446,8 @@ export interface ProfileFieldRefs {
   readonly hasPreviousCertification: Prisma.FieldRef<"Profile", 'Boolean'>
   readonly certificationApproved: Prisma.FieldRef<"Profile", 'Boolean'>
   readonly certificationApprovedAt: Prisma.FieldRef<"Profile", 'DateTime'>
+  readonly certificationRejectionReason: Prisma.FieldRef<"Profile", 'String'>
+  readonly certificationRejectedAt: Prisma.FieldRef<"Profile", 'DateTime'>
   readonly pictureFileId: Prisma.FieldRef<"Profile", 'String'>
   readonly certificationFileId: Prisma.FieldRef<"Profile", 'String'>
   readonly createdAt: Prisma.FieldRef<"Profile", 'DateTime'>

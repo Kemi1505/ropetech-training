@@ -57,13 +57,16 @@ export const ModelName = {
   StoredFile: 'StoredFile',
   Profile: 'Profile',
   Course: 'Course',
-  CourseContent: 'CourseContent',
+  Section: 'Section',
+  Lesson: 'Lesson',
+  LessonCompletion: 'LessonCompletion',
   Enrollment: 'Enrollment',
-  ContentCompletion: 'ContentCompletion',
   PaymentSubmission: 'PaymentSubmission',
   Question: 'Question',
   QuestionOption: 'QuestionOption',
-  AssessmentAttempt: 'AssessmentAttempt'
+  AssessmentAttempt: 'AssessmentAttempt',
+  Notification: 'Notification',
+  AnotherStoredFile: 'AnotherStoredFile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -142,6 +145,8 @@ export const ProfileScalarFieldEnum = {
   hasPreviousCertification: 'hasPreviousCertification',
   certificationApproved: 'certificationApproved',
   certificationApprovedAt: 'certificationApprovedAt',
+  certificationRejectionReason: 'certificationRejectionReason',
+  certificationRejectedAt: 'certificationRejectedAt',
   pictureFileId: 'pictureFileId',
   certificationFileId: 'certificationFileId',
   createdAt: 'createdAt',
@@ -154,13 +159,18 @@ export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeo
 export const CourseScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  overview: 'overview',
+  shortDescription: 'shortDescription',
+  description: 'description',
   learningOutcomes: 'learningOutcomes',
+  certificationRequirement: 'certificationRequirement',
   price: 'price',
   requiresPreviousCertification: 'requiresPreviousCertification',
   difficulty: 'difficulty',
   isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  isFeatured: 'isFeatured',
   passMark: 'passMark',
+  maxAttempts: 'maxAttempts',
   pictureFileId: 'pictureFileId',
   createdById: 'createdById',
   createdAt: 'createdAt',
@@ -170,16 +180,42 @@ export const CourseScalarFieldEnum = {
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
 
 
-export const CourseContentScalarFieldEnum = {
+export const SectionScalarFieldEnum = {
   id: 'id',
   courseId: 'courseId',
   title: 'title',
   position: 'position',
-  fileId: 'fileId',
   createdAt: 'createdAt'
 } as const
 
-export type CourseContentScalarFieldEnum = (typeof CourseContentScalarFieldEnum)[keyof typeof CourseContentScalarFieldEnum]
+export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
+
+
+export const LessonScalarFieldEnum = {
+  id: 'id',
+  sectionId: 'sectionId',
+  courseId: 'courseId',
+  title: 'title',
+  type: 'type',
+  position: 'position',
+  fileKey: 'fileKey',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  createdAt: 'createdAt'
+} as const
+
+export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
+
+
+export const LessonCompletionScalarFieldEnum = {
+  userId: 'userId',
+  lessonId: 'lessonId',
+  courseId: 'courseId',
+  completedAt: 'completedAt'
+} as const
+
+export type LessonCompletionScalarFieldEnum = (typeof LessonCompletionScalarFieldEnum)[keyof typeof LessonCompletionScalarFieldEnum]
 
 
 export const EnrollmentScalarFieldEnum = {
@@ -189,20 +225,12 @@ export const EnrollmentScalarFieldEnum = {
   paymentStatus: 'paymentStatus',
   paymentApprovedAt: 'paymentApprovedAt',
   paymentApprovedById: 'paymentApprovedById',
-  enrolledAt: 'enrolledAt'
+  enrolledAt: 'enrolledAt',
+  lastOpenedAt: 'lastOpenedAt',
+  lastLessonId: 'lastLessonId'
 } as const
 
 export type EnrollmentScalarFieldEnum = (typeof EnrollmentScalarFieldEnum)[keyof typeof EnrollmentScalarFieldEnum]
-
-
-export const ContentCompletionScalarFieldEnum = {
-  userId: 'userId',
-  contentId: 'contentId',
-  courseId: 'courseId',
-  completedAt: 'completedAt'
-} as const
-
-export type ContentCompletionScalarFieldEnum = (typeof ContentCompletionScalarFieldEnum)[keyof typeof ContentCompletionScalarFieldEnum]
 
 
 export const PaymentSubmissionScalarFieldEnum = {
@@ -258,6 +286,33 @@ export const AssessmentAttemptScalarFieldEnum = {
 } as const
 
 export type AssessmentAttemptScalarFieldEnum = (typeof AssessmentAttemptScalarFieldEnum)[keyof typeof AssessmentAttemptScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  title: 'title',
+  body: 'body',
+  link: 'link',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const AnotherStoredFileScalarFieldEnum = {
+  key: 'key',
+  data: 'data',
+  contentType: 'contentType',
+  size: 'size',
+  expectedSize: 'expectedSize',
+  uploaded: 'uploaded',
+  createdAt: 'createdAt'
+} as const
+
+export type AnotherStoredFileScalarFieldEnum = (typeof AnotherStoredFileScalarFieldEnum)[keyof typeof AnotherStoredFileScalarFieldEnum]
 
 
 export const SortOrder = {

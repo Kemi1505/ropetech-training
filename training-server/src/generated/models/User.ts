@@ -218,8 +218,9 @@ export type UserWhereInput = {
   resetOtps?: Prisma.PasswordResetOtpListRelationFilter
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   enrollments?: Prisma.EnrollmentListRelationFilter
-  completions?: Prisma.ContentCompletionListRelationFilter
+  completions?: Prisma.LessonCompletionListRelationFilter
   attempts?: Prisma.AssessmentAttemptListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -236,8 +237,9 @@ export type UserOrderByWithRelationInput = {
   resetOtps?: Prisma.PasswordResetOtpOrderByRelationAggregateInput
   profile?: Prisma.ProfileOrderByWithRelationInput
   enrollments?: Prisma.EnrollmentOrderByRelationAggregateInput
-  completions?: Prisma.ContentCompletionOrderByRelationAggregateInput
+  completions?: Prisma.LessonCompletionOrderByRelationAggregateInput
   attempts?: Prisma.AssessmentAttemptOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -257,8 +259,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   resetOtps?: Prisma.PasswordResetOtpListRelationFilter
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   enrollments?: Prisma.EnrollmentListRelationFilter
-  completions?: Prisma.ContentCompletionListRelationFilter
+  completions?: Prisma.LessonCompletionListRelationFilter
   attempts?: Prisma.AssessmentAttemptListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }, "id" | "email" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
@@ -305,8 +308,9 @@ export type UserCreateInput = {
   resetOtps?: Prisma.PasswordResetOtpCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
-  completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionCreateNestedManyWithoutUserInput
   attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -323,8 +327,9 @@ export type UserUncheckedCreateInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
-  completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -341,8 +346,9 @@ export type UserUpdateInput = {
   resetOtps?: Prisma.PasswordResetOtpUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -359,8 +365,9 @@ export type UserUncheckedUpdateInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -506,20 +513,6 @@ export type UserUpdateOneRequiredWithoutProfileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfileInput, Prisma.UserUpdateWithoutProfileInput>, Prisma.UserUncheckedUpdateWithoutProfileInput>
 }
 
-export type UserCreateNestedOneWithoutEnrollmentsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutEnrollmentsInput, Prisma.UserUncheckedCreateWithoutEnrollmentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEnrollmentsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutEnrollmentsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutEnrollmentsInput, Prisma.UserUncheckedCreateWithoutEnrollmentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEnrollmentsInput
-  upsert?: Prisma.UserUpsertWithoutEnrollmentsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEnrollmentsInput, Prisma.UserUpdateWithoutEnrollmentsInput>, Prisma.UserUncheckedUpdateWithoutEnrollmentsInput>
-}
-
 export type UserCreateNestedOneWithoutCompletionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCompletionsInput, Prisma.UserUncheckedCreateWithoutCompletionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompletionsInput
@@ -532,6 +525,20 @@ export type UserUpdateOneRequiredWithoutCompletionsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutCompletionsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCompletionsInput, Prisma.UserUpdateWithoutCompletionsInput>, Prisma.UserUncheckedUpdateWithoutCompletionsInput>
+}
+
+export type UserCreateNestedOneWithoutEnrollmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEnrollmentsInput, Prisma.UserUncheckedCreateWithoutEnrollmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEnrollmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutEnrollmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEnrollmentsInput, Prisma.UserUncheckedCreateWithoutEnrollmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEnrollmentsInput
+  upsert?: Prisma.UserUpsertWithoutEnrollmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEnrollmentsInput, Prisma.UserUpdateWithoutEnrollmentsInput>, Prisma.UserUncheckedUpdateWithoutEnrollmentsInput>
 }
 
 export type UserCreateNestedOneWithoutAttemptsInput = {
@@ -548,6 +555,20 @@ export type UserUpdateOneRequiredWithoutAttemptsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAttemptsInput, Prisma.UserUpdateWithoutAttemptsInput>, Prisma.UserUncheckedUpdateWithoutAttemptsInput>
 }
 
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
 export type UserCreateWithoutRefreshTokensInput = {
   id?: string
   email: string
@@ -561,8 +582,9 @@ export type UserCreateWithoutRefreshTokensInput = {
   resetOtps?: Prisma.PasswordResetOtpCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
-  completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionCreateNestedManyWithoutUserInput
   attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -578,8 +600,9 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
-  completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -611,8 +634,9 @@ export type UserUpdateWithoutRefreshTokensInput = {
   resetOtps?: Prisma.PasswordResetOtpUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -628,8 +652,9 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutResetOtpsInput = {
@@ -645,8 +670,9 @@ export type UserCreateWithoutResetOtpsInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
-  completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionCreateNestedManyWithoutUserInput
   attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutResetOtpsInput = {
@@ -662,8 +688,9 @@ export type UserUncheckedCreateWithoutResetOtpsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
-  completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutResetOtpsInput = {
@@ -695,8 +722,9 @@ export type UserUpdateWithoutResetOtpsInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResetOtpsInput = {
@@ -712,8 +740,9 @@ export type UserUncheckedUpdateWithoutResetOtpsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProfileInput = {
@@ -729,8 +758,9 @@ export type UserCreateWithoutProfileInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   resetOtps?: Prisma.PasswordResetOtpCreateNestedManyWithoutUserInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
-  completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionCreateNestedManyWithoutUserInput
   attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -746,8 +776,9 @@ export type UserUncheckedCreateWithoutProfileInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   resetOtps?: Prisma.PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
-  completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -779,8 +810,9 @@ export type UserUpdateWithoutProfileInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   resetOtps?: Prisma.PasswordResetOtpUpdateManyWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -796,92 +828,9 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   resetOtps?: Prisma.PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutEnrollmentsInput = {
-  id?: string
-  email: string
-  password?: string | null
-  authType?: $Enums.AuthMethod
-  role?: $Enums.Role
-  isActive?: boolean
-  googleId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  resetOtps?: Prisma.PasswordResetOtpCreateNestedManyWithoutUserInput
-  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
-  completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
-  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutEnrollmentsInput = {
-  id?: string
-  email: string
-  password?: string | null
-  authType?: $Enums.AuthMethod
-  role?: $Enums.Role
-  isActive?: boolean
-  googleId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  resetOtps?: Prisma.PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
-  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
-  completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
-  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutEnrollmentsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutEnrollmentsInput, Prisma.UserUncheckedCreateWithoutEnrollmentsInput>
-}
-
-export type UserUpsertWithoutEnrollmentsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutEnrollmentsInput, Prisma.UserUncheckedUpdateWithoutEnrollmentsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutEnrollmentsInput, Prisma.UserUncheckedCreateWithoutEnrollmentsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutEnrollmentsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutEnrollmentsInput, Prisma.UserUncheckedUpdateWithoutEnrollmentsInput>
-}
-
-export type UserUpdateWithoutEnrollmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authType?: Prisma.EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  resetOtps?: Prisma.PasswordResetOtpUpdateManyWithoutUserNestedInput
-  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
-  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutEnrollmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authType?: Prisma.EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  resetOtps?: Prisma.PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
-  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
-  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCompletionsInput = {
@@ -899,6 +848,7 @@ export type UserCreateWithoutCompletionsInput = {
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
   attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCompletionsInput = {
@@ -916,6 +866,7 @@ export type UserUncheckedCreateWithoutCompletionsInput = {
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCompletionsInput = {
@@ -949,6 +900,7 @@ export type UserUpdateWithoutCompletionsInput = {
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompletionsInput = {
@@ -966,6 +918,95 @@ export type UserUncheckedUpdateWithoutCompletionsInput = {
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutEnrollmentsInput = {
+  id?: string
+  email: string
+  password?: string | null
+  authType?: $Enums.AuthMethod
+  role?: $Enums.Role
+  isActive?: boolean
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  resetOtps?: Prisma.PasswordResetOtpCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  completions?: Prisma.LessonCompletionCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutEnrollmentsInput = {
+  id?: string
+  email: string
+  password?: string | null
+  authType?: $Enums.AuthMethod
+  role?: $Enums.Role
+  isActive?: boolean
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  resetOtps?: Prisma.PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  completions?: Prisma.LessonCompletionUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutEnrollmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutEnrollmentsInput, Prisma.UserUncheckedCreateWithoutEnrollmentsInput>
+}
+
+export type UserUpsertWithoutEnrollmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutEnrollmentsInput, Prisma.UserUncheckedUpdateWithoutEnrollmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutEnrollmentsInput, Prisma.UserUncheckedCreateWithoutEnrollmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutEnrollmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutEnrollmentsInput, Prisma.UserUncheckedUpdateWithoutEnrollmentsInput>
+}
+
+export type UserUpdateWithoutEnrollmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  resetOtps?: Prisma.PasswordResetOtpUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutEnrollmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  resetOtps?: Prisma.PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAttemptsInput = {
@@ -982,7 +1023,8 @@ export type UserCreateWithoutAttemptsInput = {
   resetOtps?: Prisma.PasswordResetOtpCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
-  completions?: Prisma.ContentCompletionCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAttemptsInput = {
@@ -999,7 +1041,8 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
-  completions?: Prisma.ContentCompletionUncheckedCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAttemptsInput = {
@@ -1032,7 +1075,8 @@ export type UserUpdateWithoutAttemptsInput = {
   resetOtps?: Prisma.PasswordResetOtpUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttemptsInput = {
@@ -1049,7 +1093,96 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   resetOtps?: Prisma.PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
-  completions?: Prisma.ContentCompletionUncheckedUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  email: string
+  password?: string | null
+  authType?: $Enums.AuthMethod
+  role?: $Enums.Role
+  isActive?: boolean
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  resetOtps?: Prisma.PasswordResetOtpCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  email: string
+  password?: string | null
+  authType?: $Enums.AuthMethod
+  role?: $Enums.Role
+  isActive?: boolean
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  resetOtps?: Prisma.PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
+  completions?: Prisma.LessonCompletionUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  resetOtps?: Prisma.PasswordResetOtpUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.EnumAuthMethodFieldUpdateOperationsInput | $Enums.AuthMethod
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  resetOtps?: Prisma.PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  completions?: Prisma.LessonCompletionUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1063,6 +1196,7 @@ export type UserCountOutputType = {
   enrollments: number
   completions: number
   attempts: number
+  notifications: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1071,6 +1205,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   enrollments?: boolean | UserCountOutputTypeCountEnrollmentsArgs
   completions?: boolean | UserCountOutputTypeCountCompletionsArgs
   attempts?: boolean | UserCountOutputTypeCountAttemptsArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
 }
 
 /**
@@ -1108,7 +1243,7 @@ export type UserCountOutputTypeCountEnrollmentsArgs<ExtArgs extends runtime.Type
  * UserCountOutputType without action
  */
 export type UserCountOutputTypeCountCompletionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ContentCompletionWhereInput
+  where?: Prisma.LessonCompletionWhereInput
 }
 
 /**
@@ -1116,6 +1251,13 @@ export type UserCountOutputTypeCountCompletionsArgs<ExtArgs extends runtime.Type
  */
 export type UserCountOutputTypeCountAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AssessmentAttemptWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
 }
 
 
@@ -1135,6 +1277,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   enrollments?: boolean | Prisma.User$enrollmentsArgs<ExtArgs>
   completions?: boolean | Prisma.User$completionsArgs<ExtArgs>
   attempts?: boolean | Prisma.User$attemptsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1182,6 +1325,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   enrollments?: boolean | Prisma.User$enrollmentsArgs<ExtArgs>
   completions?: boolean | Prisma.User$completionsArgs<ExtArgs>
   attempts?: boolean | Prisma.User$attemptsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1194,8 +1338,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     resetOtps: Prisma.$PasswordResetOtpPayload<ExtArgs>[]
     profile: Prisma.$ProfilePayload<ExtArgs> | null
     enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
-    completions: Prisma.$ContentCompletionPayload<ExtArgs>[]
+    completions: Prisma.$LessonCompletionPayload<ExtArgs>[]
     attempts: Prisma.$AssessmentAttemptPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1605,8 +1750,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   resetOtps<T extends Prisma.User$resetOtpsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resetOtpsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   enrollments<T extends Prisma.User$enrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  completions<T extends Prisma.User$completionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$completionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  completions<T extends Prisma.User$completionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$completionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attempts<T extends Prisma.User$attemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssessmentAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2133,23 +2279,23 @@ export type User$enrollmentsArgs<ExtArgs extends runtime.Types.Extensions.Intern
  */
 export type User$completionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ContentCompletion
+   * Select specific fields to fetch from the LessonCompletion
    */
-  select?: Prisma.ContentCompletionSelect<ExtArgs> | null
+  select?: Prisma.LessonCompletionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ContentCompletion
+   * Omit specific fields from the LessonCompletion
    */
-  omit?: Prisma.ContentCompletionOmit<ExtArgs> | null
+  omit?: Prisma.LessonCompletionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ContentCompletionInclude<ExtArgs> | null
-  where?: Prisma.ContentCompletionWhereInput
-  orderBy?: Prisma.ContentCompletionOrderByWithRelationInput | Prisma.ContentCompletionOrderByWithRelationInput[]
-  cursor?: Prisma.ContentCompletionWhereUniqueInput
+  include?: Prisma.LessonCompletionInclude<ExtArgs> | null
+  where?: Prisma.LessonCompletionWhereInput
+  orderBy?: Prisma.LessonCompletionOrderByWithRelationInput | Prisma.LessonCompletionOrderByWithRelationInput[]
+  cursor?: Prisma.LessonCompletionWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ContentCompletionScalarFieldEnum | Prisma.ContentCompletionScalarFieldEnum[]
+  distinct?: Prisma.LessonCompletionScalarFieldEnum | Prisma.LessonCompletionScalarFieldEnum[]
 }
 
 /**
@@ -2174,6 +2320,30 @@ export type User$attemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AssessmentAttemptScalarFieldEnum | Prisma.AssessmentAttemptScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
 }
 
 /**

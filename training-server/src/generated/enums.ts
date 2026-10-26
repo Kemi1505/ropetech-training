@@ -43,3 +43,23 @@ export const PaymentStatus = {
 } as const
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const LessonType = {
+  PDF: 'PDF',
+  VIDEO: 'VIDEO',
+  SLIDES: 'SLIDES'
+} as const
+
+export type LessonType = (typeof LessonType)[keyof typeof LessonType]
+
+
+export const NotificationType = {
+  PAYMENT_APPROVED: 'PAYMENT_APPROVED',
+  PAYMENT_REJECTED: 'PAYMENT_REJECTED',
+  CERTIFICATION_APPROVED: 'CERTIFICATION_APPROVED',
+  CERTIFICATION_REJECTED: 'CERTIFICATION_REJECTED',
+  ASSESSMENT_PASSED: 'ASSESSMENT_PASSED'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]

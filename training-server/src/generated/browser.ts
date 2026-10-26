@@ -48,20 +48,25 @@ export type Profile = Prisma.ProfileModel
  */
 export type Course = Prisma.CourseModel
 /**
- * Model CourseContent
+ * Model Section
  * 
  */
-export type CourseContent = Prisma.CourseContentModel
+export type Section = Prisma.SectionModel
+/**
+ * Model Lesson
+ * 
+ */
+export type Lesson = Prisma.LessonModel
+/**
+ * Model LessonCompletion
+ * 
+ */
+export type LessonCompletion = Prisma.LessonCompletionModel
 /**
  * Model Enrollment
  * 
  */
 export type Enrollment = Prisma.EnrollmentModel
-/**
- * Model ContentCompletion
- * 
- */
-export type ContentCompletion = Prisma.ContentCompletionModel
 /**
  * Model PaymentSubmission
  * 
@@ -82,3 +87,13 @@ export type QuestionOption = Prisma.QuestionOptionModel
  * 
  */
 export type AssessmentAttempt = Prisma.AssessmentAttemptModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model AnotherStoredFile
+ * 
+ */
+export type AnotherStoredFile = Prisma.AnotherStoredFileModel

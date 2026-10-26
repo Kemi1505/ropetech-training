@@ -227,7 +227,6 @@ export type StoredFileWhereInput = {
   profilePicture?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   profileCertification?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   coursePicture?: Prisma.XOR<Prisma.CourseNullableScalarRelationFilter, Prisma.CourseWhereInput> | null
-  courseContent?: Prisma.XOR<Prisma.CourseContentNullableScalarRelationFilter, Prisma.CourseContentWhereInput> | null
 }
 
 export type StoredFileOrderByWithRelationInput = {
@@ -240,7 +239,6 @@ export type StoredFileOrderByWithRelationInput = {
   profilePicture?: Prisma.ProfileOrderByWithRelationInput
   profileCertification?: Prisma.ProfileOrderByWithRelationInput
   coursePicture?: Prisma.CourseOrderByWithRelationInput
-  courseContent?: Prisma.CourseContentOrderByWithRelationInput
 }
 
 export type StoredFileWhereUniqueInput = Prisma.AtLeast<{
@@ -256,7 +254,6 @@ export type StoredFileWhereUniqueInput = Prisma.AtLeast<{
   profilePicture?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   profileCertification?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   coursePicture?: Prisma.XOR<Prisma.CourseNullableScalarRelationFilter, Prisma.CourseWhereInput> | null
-  courseContent?: Prisma.XOR<Prisma.CourseContentNullableScalarRelationFilter, Prisma.CourseContentWhereInput> | null
 }, "id">
 
 export type StoredFileOrderByWithAggregationInput = {
@@ -295,7 +292,6 @@ export type StoredFileCreateInput = {
   profilePicture?: Prisma.ProfileCreateNestedOneWithoutPictureInput
   profileCertification?: Prisma.ProfileCreateNestedOneWithoutCertificationFileInput
   coursePicture?: Prisma.CourseCreateNestedOneWithoutPictureInput
-  courseContent?: Prisma.CourseContentCreateNestedOneWithoutFileInput
 }
 
 export type StoredFileUncheckedCreateInput = {
@@ -308,7 +304,6 @@ export type StoredFileUncheckedCreateInput = {
   profilePicture?: Prisma.ProfileUncheckedCreateNestedOneWithoutPictureInput
   profileCertification?: Prisma.ProfileUncheckedCreateNestedOneWithoutCertificationFileInput
   coursePicture?: Prisma.CourseUncheckedCreateNestedOneWithoutPictureInput
-  courseContent?: Prisma.CourseContentUncheckedCreateNestedOneWithoutFileInput
 }
 
 export type StoredFileUpdateInput = {
@@ -321,7 +316,6 @@ export type StoredFileUpdateInput = {
   profilePicture?: Prisma.ProfileUpdateOneWithoutPictureNestedInput
   profileCertification?: Prisma.ProfileUpdateOneWithoutCertificationFileNestedInput
   coursePicture?: Prisma.CourseUpdateOneWithoutPictureNestedInput
-  courseContent?: Prisma.CourseContentUpdateOneWithoutFileNestedInput
 }
 
 export type StoredFileUncheckedUpdateInput = {
@@ -334,7 +328,6 @@ export type StoredFileUncheckedUpdateInput = {
   profilePicture?: Prisma.ProfileUncheckedUpdateOneWithoutPictureNestedInput
   profileCertification?: Prisma.ProfileUncheckedUpdateOneWithoutCertificationFileNestedInput
   coursePicture?: Prisma.CourseUncheckedUpdateOneWithoutPictureNestedInput
-  courseContent?: Prisma.CourseContentUncheckedUpdateOneWithoutFileNestedInput
 }
 
 export type StoredFileCreateManyInput = {
@@ -404,11 +397,6 @@ export type StoredFileNullableScalarRelationFilter = {
   isNot?: Prisma.StoredFileWhereInput | null
 }
 
-export type StoredFileScalarRelationFilter = {
-  is?: Prisma.StoredFileWhereInput
-  isNot?: Prisma.StoredFileWhereInput
-}
-
 export type BytesFieldUpdateOperationsInput = {
   set?: runtime.Bytes
 }
@@ -461,20 +449,6 @@ export type StoredFileUpdateOneWithoutCoursePictureNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StoredFileUpdateToOneWithWhereWithoutCoursePictureInput, Prisma.StoredFileUpdateWithoutCoursePictureInput>, Prisma.StoredFileUncheckedUpdateWithoutCoursePictureInput>
 }
 
-export type StoredFileCreateNestedOneWithoutCourseContentInput = {
-  create?: Prisma.XOR<Prisma.StoredFileCreateWithoutCourseContentInput, Prisma.StoredFileUncheckedCreateWithoutCourseContentInput>
-  connectOrCreate?: Prisma.StoredFileCreateOrConnectWithoutCourseContentInput
-  connect?: Prisma.StoredFileWhereUniqueInput
-}
-
-export type StoredFileUpdateOneRequiredWithoutCourseContentNestedInput = {
-  create?: Prisma.XOR<Prisma.StoredFileCreateWithoutCourseContentInput, Prisma.StoredFileUncheckedCreateWithoutCourseContentInput>
-  connectOrCreate?: Prisma.StoredFileCreateOrConnectWithoutCourseContentInput
-  upsert?: Prisma.StoredFileUpsertWithoutCourseContentInput
-  connect?: Prisma.StoredFileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StoredFileUpdateToOneWithWhereWithoutCourseContentInput, Prisma.StoredFileUpdateWithoutCourseContentInput>, Prisma.StoredFileUncheckedUpdateWithoutCourseContentInput>
-}
-
 export type StoredFileCreateWithoutProfilePictureInput = {
   id?: string
   filename: string
@@ -484,7 +458,6 @@ export type StoredFileCreateWithoutProfilePictureInput = {
   createdAt?: Date | string
   profileCertification?: Prisma.ProfileCreateNestedOneWithoutCertificationFileInput
   coursePicture?: Prisma.CourseCreateNestedOneWithoutPictureInput
-  courseContent?: Prisma.CourseContentCreateNestedOneWithoutFileInput
 }
 
 export type StoredFileUncheckedCreateWithoutProfilePictureInput = {
@@ -496,7 +469,6 @@ export type StoredFileUncheckedCreateWithoutProfilePictureInput = {
   createdAt?: Date | string
   profileCertification?: Prisma.ProfileUncheckedCreateNestedOneWithoutCertificationFileInput
   coursePicture?: Prisma.CourseUncheckedCreateNestedOneWithoutPictureInput
-  courseContent?: Prisma.CourseContentUncheckedCreateNestedOneWithoutFileInput
 }
 
 export type StoredFileCreateOrConnectWithoutProfilePictureInput = {
@@ -513,7 +485,6 @@ export type StoredFileCreateWithoutProfileCertificationInput = {
   createdAt?: Date | string
   profilePicture?: Prisma.ProfileCreateNestedOneWithoutPictureInput
   coursePicture?: Prisma.CourseCreateNestedOneWithoutPictureInput
-  courseContent?: Prisma.CourseContentCreateNestedOneWithoutFileInput
 }
 
 export type StoredFileUncheckedCreateWithoutProfileCertificationInput = {
@@ -525,7 +496,6 @@ export type StoredFileUncheckedCreateWithoutProfileCertificationInput = {
   createdAt?: Date | string
   profilePicture?: Prisma.ProfileUncheckedCreateNestedOneWithoutPictureInput
   coursePicture?: Prisma.CourseUncheckedCreateNestedOneWithoutPictureInput
-  courseContent?: Prisma.CourseContentUncheckedCreateNestedOneWithoutFileInput
 }
 
 export type StoredFileCreateOrConnectWithoutProfileCertificationInput = {
@@ -553,7 +523,6 @@ export type StoredFileUpdateWithoutProfilePictureInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profileCertification?: Prisma.ProfileUpdateOneWithoutCertificationFileNestedInput
   coursePicture?: Prisma.CourseUpdateOneWithoutPictureNestedInput
-  courseContent?: Prisma.CourseContentUpdateOneWithoutFileNestedInput
 }
 
 export type StoredFileUncheckedUpdateWithoutProfilePictureInput = {
@@ -565,7 +534,6 @@ export type StoredFileUncheckedUpdateWithoutProfilePictureInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profileCertification?: Prisma.ProfileUncheckedUpdateOneWithoutCertificationFileNestedInput
   coursePicture?: Prisma.CourseUncheckedUpdateOneWithoutPictureNestedInput
-  courseContent?: Prisma.CourseContentUncheckedUpdateOneWithoutFileNestedInput
 }
 
 export type StoredFileUpsertWithoutProfileCertificationInput = {
@@ -588,7 +556,6 @@ export type StoredFileUpdateWithoutProfileCertificationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profilePicture?: Prisma.ProfileUpdateOneWithoutPictureNestedInput
   coursePicture?: Prisma.CourseUpdateOneWithoutPictureNestedInput
-  courseContent?: Prisma.CourseContentUpdateOneWithoutFileNestedInput
 }
 
 export type StoredFileUncheckedUpdateWithoutProfileCertificationInput = {
@@ -600,7 +567,6 @@ export type StoredFileUncheckedUpdateWithoutProfileCertificationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profilePicture?: Prisma.ProfileUncheckedUpdateOneWithoutPictureNestedInput
   coursePicture?: Prisma.CourseUncheckedUpdateOneWithoutPictureNestedInput
-  courseContent?: Prisma.CourseContentUncheckedUpdateOneWithoutFileNestedInput
 }
 
 export type StoredFileCreateWithoutCoursePictureInput = {
@@ -612,7 +578,6 @@ export type StoredFileCreateWithoutCoursePictureInput = {
   createdAt?: Date | string
   profilePicture?: Prisma.ProfileCreateNestedOneWithoutPictureInput
   profileCertification?: Prisma.ProfileCreateNestedOneWithoutCertificationFileInput
-  courseContent?: Prisma.CourseContentCreateNestedOneWithoutFileInput
 }
 
 export type StoredFileUncheckedCreateWithoutCoursePictureInput = {
@@ -624,7 +589,6 @@ export type StoredFileUncheckedCreateWithoutCoursePictureInput = {
   createdAt?: Date | string
   profilePicture?: Prisma.ProfileUncheckedCreateNestedOneWithoutPictureInput
   profileCertification?: Prisma.ProfileUncheckedCreateNestedOneWithoutCertificationFileInput
-  courseContent?: Prisma.CourseContentUncheckedCreateNestedOneWithoutFileInput
 }
 
 export type StoredFileCreateOrConnectWithoutCoursePictureInput = {
@@ -652,7 +616,6 @@ export type StoredFileUpdateWithoutCoursePictureInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profilePicture?: Prisma.ProfileUpdateOneWithoutPictureNestedInput
   profileCertification?: Prisma.ProfileUpdateOneWithoutCertificationFileNestedInput
-  courseContent?: Prisma.CourseContentUpdateOneWithoutFileNestedInput
 }
 
 export type StoredFileUncheckedUpdateWithoutCoursePictureInput = {
@@ -664,71 +627,6 @@ export type StoredFileUncheckedUpdateWithoutCoursePictureInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profilePicture?: Prisma.ProfileUncheckedUpdateOneWithoutPictureNestedInput
   profileCertification?: Prisma.ProfileUncheckedUpdateOneWithoutCertificationFileNestedInput
-  courseContent?: Prisma.CourseContentUncheckedUpdateOneWithoutFileNestedInput
-}
-
-export type StoredFileCreateWithoutCourseContentInput = {
-  id?: string
-  filename: string
-  mimeType: string
-  size: number
-  data: runtime.Bytes
-  createdAt?: Date | string
-  profilePicture?: Prisma.ProfileCreateNestedOneWithoutPictureInput
-  profileCertification?: Prisma.ProfileCreateNestedOneWithoutCertificationFileInput
-  coursePicture?: Prisma.CourseCreateNestedOneWithoutPictureInput
-}
-
-export type StoredFileUncheckedCreateWithoutCourseContentInput = {
-  id?: string
-  filename: string
-  mimeType: string
-  size: number
-  data: runtime.Bytes
-  createdAt?: Date | string
-  profilePicture?: Prisma.ProfileUncheckedCreateNestedOneWithoutPictureInput
-  profileCertification?: Prisma.ProfileUncheckedCreateNestedOneWithoutCertificationFileInput
-  coursePicture?: Prisma.CourseUncheckedCreateNestedOneWithoutPictureInput
-}
-
-export type StoredFileCreateOrConnectWithoutCourseContentInput = {
-  where: Prisma.StoredFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.StoredFileCreateWithoutCourseContentInput, Prisma.StoredFileUncheckedCreateWithoutCourseContentInput>
-}
-
-export type StoredFileUpsertWithoutCourseContentInput = {
-  update: Prisma.XOR<Prisma.StoredFileUpdateWithoutCourseContentInput, Prisma.StoredFileUncheckedUpdateWithoutCourseContentInput>
-  create: Prisma.XOR<Prisma.StoredFileCreateWithoutCourseContentInput, Prisma.StoredFileUncheckedCreateWithoutCourseContentInput>
-  where?: Prisma.StoredFileWhereInput
-}
-
-export type StoredFileUpdateToOneWithWhereWithoutCourseContentInput = {
-  where?: Prisma.StoredFileWhereInput
-  data: Prisma.XOR<Prisma.StoredFileUpdateWithoutCourseContentInput, Prisma.StoredFileUncheckedUpdateWithoutCourseContentInput>
-}
-
-export type StoredFileUpdateWithoutCourseContentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  filename?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  data?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  profilePicture?: Prisma.ProfileUpdateOneWithoutPictureNestedInput
-  profileCertification?: Prisma.ProfileUpdateOneWithoutCertificationFileNestedInput
-  coursePicture?: Prisma.CourseUpdateOneWithoutPictureNestedInput
-}
-
-export type StoredFileUncheckedUpdateWithoutCourseContentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  filename?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  data?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  profilePicture?: Prisma.ProfileUncheckedUpdateOneWithoutPictureNestedInput
-  profileCertification?: Prisma.ProfileUncheckedUpdateOneWithoutCertificationFileNestedInput
-  coursePicture?: Prisma.CourseUncheckedUpdateOneWithoutPictureNestedInput
 }
 
 
@@ -743,7 +641,6 @@ export type StoredFileSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   profilePicture?: boolean | Prisma.StoredFile$profilePictureArgs<ExtArgs>
   profileCertification?: boolean | Prisma.StoredFile$profileCertificationArgs<ExtArgs>
   coursePicture?: boolean | Prisma.StoredFile$coursePictureArgs<ExtArgs>
-  courseContent?: boolean | Prisma.StoredFile$courseContentArgs<ExtArgs>
 }, ExtArgs["result"]["storedFile"]>
 
 export type StoredFileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -778,7 +675,6 @@ export type StoredFileInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   profilePicture?: boolean | Prisma.StoredFile$profilePictureArgs<ExtArgs>
   profileCertification?: boolean | Prisma.StoredFile$profileCertificationArgs<ExtArgs>
   coursePicture?: boolean | Prisma.StoredFile$coursePictureArgs<ExtArgs>
-  courseContent?: boolean | Prisma.StoredFile$courseContentArgs<ExtArgs>
 }
 export type StoredFileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 export type StoredFileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -789,7 +685,6 @@ export type $StoredFilePayload<ExtArgs extends runtime.Types.Extensions.Internal
     profilePicture: Prisma.$ProfilePayload<ExtArgs> | null
     profileCertification: Prisma.$ProfilePayload<ExtArgs> | null
     coursePicture: Prisma.$CoursePayload<ExtArgs> | null
-    courseContent: Prisma.$CourseContentPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1195,7 +1090,6 @@ export interface Prisma__StoredFileClient<T, Null = never, ExtArgs extends runti
   profilePicture<T extends Prisma.StoredFile$profilePictureArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StoredFile$profilePictureArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   profileCertification<T extends Prisma.StoredFile$profileCertificationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StoredFile$profileCertificationArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   coursePicture<T extends Prisma.StoredFile$coursePictureArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StoredFile$coursePictureArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  courseContent<T extends Prisma.StoredFile$courseContentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StoredFile$courseContentArgs<ExtArgs>>): Prisma.Prisma__CourseContentClient<runtime.Types.Result.GetResult<Prisma.$CourseContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1678,25 +1572,6 @@ export type StoredFile$coursePictureArgs<ExtArgs extends runtime.Types.Extension
    */
   include?: Prisma.CourseInclude<ExtArgs> | null
   where?: Prisma.CourseWhereInput
-}
-
-/**
- * StoredFile.courseContent
- */
-export type StoredFile$courseContentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CourseContent
-   */
-  select?: Prisma.CourseContentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the CourseContent
-   */
-  omit?: Prisma.CourseContentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CourseContentInclude<ExtArgs> | null
-  where?: Prisma.CourseContentWhereInput
 }
 
 /**
