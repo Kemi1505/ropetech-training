@@ -11,7 +11,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { AdminModule } from './admin/admin.module';
-import { ContentsModule } from './contents/contents.module';
 import { CoursesModule } from './courses/courses.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { EnquiryModule } from './enquiry/enquiry.module';
@@ -19,6 +18,10 @@ import { FilesModule } from './files/files.module';
 import { ProfileModule } from './profile/profile.module';
 import { AssessmentModule } from './assessment/assessment.module';
 import { PaymentsModule } from './payments/payments.module';
+import { LessonsModule } from './lessons/lessons.module';
+import { MeModule } from './me/me.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { StorageModule } from './storage/storage.module';
 
 const REQUIRED_ENV = [
   'DATABASE_URL',
@@ -34,6 +37,7 @@ const REQUIRED_ENV = [
   'PAYMENT_BANK_NAME',
   'PAYMENT_ACCOUNT_NUMBER',
   'PAYMENT_ACCOUNT_NAME',
+  'APP_BASE_URL',
 ];
 
 @Module({
@@ -52,7 +56,6 @@ const REQUIRED_ENV = [
     UsersModule,
     AuthModule,
     AdminModule,
-    ContentsModule,
     CoursesModule,
     DashboardModule,
     EnquiryModule,
@@ -60,6 +63,10 @@ const REQUIRED_ENV = [
     ProfileModule,
     AssessmentModule,
     PaymentsModule,
+    LessonsModule,
+    MeModule,
+    NotificationsModule,
+    StorageModule,
   ],
   controllers: [AppController],
   providers: [
