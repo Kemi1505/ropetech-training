@@ -36,16 +36,16 @@ export class CreateQuestionDto {
   @MaxLength(1000)
   text!: string;
 
-  /** Exactly 4 options, exactly one with isCorrect: true */
+  /** 2 to 6 options, exactly one with isCorrect: true */
   @IsArray()
-  @ArrayMinSize(4)
-  @ArrayMaxSize(4)
+  @ArrayMinSize(2)
+  @ArrayMaxSize(6)
   @ValidateNested({ each: true })
   @Type(() => OptionDto)
   options!: OptionDto[];
 }
 
-/** Send only what changes. If you send options, send all 4 (they are updated in place). */
+/** Send only what changes. If you send options, send the complete new list (it replaces the old one). */
 export class UpdateQuestionDto extends PartialType(CreateQuestionDto) {}
 
 export class FinishAssessmentDto {
@@ -55,6 +55,14 @@ export class FinishAssessmentDto {
   @Min(1)
   @Max(100)
   passMark!: number;
+
+  /** Attempts each learner gets (1-20). Omit to keep the current value (5 by default). */
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  @Max(20)
+  maxAttempts?: number;
 
   /** Default true: publish the course too. false: save the pass mark and leave the publish state alone. */
   @IsOptional()

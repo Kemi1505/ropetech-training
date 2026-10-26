@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { ApiAuth } from '../common/api-auth.decorator';
 import { AssessmentService } from './assessment.service';
 import { CreateQuestionDto, FinishAssessmentDto, UpdateQuestionDto } from './dto/assessment.dto';
-import { ApiAuth } from '../common/api-auth.decorator';
-import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../generated/enums';
 
 @ApiTags('Assessment (admin)')

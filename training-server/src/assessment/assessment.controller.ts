@@ -1,11 +1,11 @@
 import { Body, Controller, Get, HttpCode, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import type { AuthUser } from '../auth/types';
+import { ApiAuth } from '../common/api-auth.decorator';
 import { AssessmentService } from './assessment.service';
 import { SubmitAssessmentDto } from './dto/assessment.dto';
-import { ApiAuth } from '../common/api-auth.decorator';
-import { type AuthUser } from '../auth/types';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
 @ApiTags('Assessment')
 @ApiAuth()
