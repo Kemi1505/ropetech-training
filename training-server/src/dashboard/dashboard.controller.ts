@@ -1,9 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ApiAuth } from '../common/api-auth.decorator';
-import { DashboardService } from './dashboard.service';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { type AuthUser } from '../auth/types';
+import type { AuthUser } from '../auth/types';
+import { DashboardService } from './dashboard.service';
 
 @ApiTags('Dashboard')
 @ApiAuth()
