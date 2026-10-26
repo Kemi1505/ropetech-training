@@ -1,12 +1,13 @@
 import { ConflictException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PaymentQueryDto, SubmitPaymentDto } from './dto/payment.dto';
-import { PaymentStatus, Prisma, Role } from '../generated/client';
-import { PrismaService } from '../prisma/prisma.service';
-import { MailService } from '../mail/mail.service';
-import { AuthUser } from '../auth/types';
+import type { AuthUser } from '../auth/types';
 import { CURRENCY, formatMoney } from '../common/currency';
 import { pageArgs, pageMeta } from '../common/pagination.dto';
+import { MailService } from '../mail/mail.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { PaymentQueryDto, SubmitPaymentDto } from './dto/payment.dto';
+import { PaymentStatus, Prisma, Role } from '../generated/client';
 
 const SUBMISSION_SELECT = {
   id: true,
@@ -22,6 +23,7 @@ const REVIEW_SELECT = {
   enrollmentId: true,
   enrollment: {
     select: {
+      userId: true,
       courseId: true,
       course: { select: { name: true } },
       user: { select: { email: true, profile: { select: { firstName: true } } } },
@@ -41,6 +43,7 @@ export class PaymentsService {
     private prisma: PrismaService,
     private config: ConfigService,
     private mail: MailService,
+    private notifications: NotificationsService,
   ) {}
 
   private assertLearner(user: AuthUser) {
@@ -191,6 +194,13 @@ export class PaymentsService {
     };
   }
 
+  /** Numbers for the Pending / Approved / Rejected tabs. */
+  async counts() {
+    const grouped = await this.prisma.paymentSubmission.groupBy({ by: ['status'], _count: { _all: true } });
+    const n = (s: PaymentStatus) => grouped.find((g) => g.status === s)?._count._all ?? 0;
+    return { pending: n(PaymentStatus.PENDING), approved: n(PaymentStatus.APPROVED), rejected: n(PaymentStatus.REJECTED) };
+  }
+
   async approve(id: string, adminId: string) {
     return this.review(id, adminId, PaymentStatus.APPROVED);
   }
@@ -205,6 +215,15 @@ export class PaymentsService {
     const firstName = s.enrollment.user.profile?.firstName ?? null;
     const courseName = s.enrollment.course.name;
     const courseUrl = `${this.config.getOrThrow<string>('FRONTEND_URL')}/courses/${s.enrollment.courseId}`;
+    await this.notifications.create(s.enrollment.userId, {
+      type: decision === PaymentStatus.APPROVED ? 'PAYMENT_APPROVED' : 'PAYMENT_REJECTED',
+      title: decision === PaymentStatus.APPROVED ? 'Payment approved' : 'Payment not approved',
+      body:
+        decision === PaymentStatus.APPROVED
+          ? `${courseName} is unlocked. You can start learning.`
+          : `Your payment for ${courseName} was not approved.${reason ? ` Reason: ${reason}` : ''} You can submit it again.`,
+      link: `/courses/${s.enrollment.courseId}`,
+    });
     try {
       if (decision === PaymentStatus.APPROVED) {
         await this.mail.sendPaymentApproved({ to, firstName, courseName, courseUrl });

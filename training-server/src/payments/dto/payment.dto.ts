@@ -1,8 +1,16 @@
 import { Transform, Type } from 'class-transformer';
-import { IsEnum, IsNumber, IsOptional, IsPositive, IsString, MaxLength, MinLength } from 'class-validator';
+import { 
+  IsEnum, 
+  IsNumber, 
+  IsOptional, 
+  IsPositive, 
+  IsString, 
+  MaxLength, 
+  MinLength 
+} from 'class-validator';
 import { PaginationDto } from '../../common/pagination.dto';
-import { PaymentStatus } from '../../generated/enums';
 import { trim } from '../../common/transforms';
+import { PaymentStatus } from '../../generated/enums';
 
 export class SubmitPaymentDto {
   /** The name on the account the money was sent from */

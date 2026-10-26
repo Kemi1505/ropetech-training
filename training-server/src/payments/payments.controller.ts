@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import type { AuthUser } from '../auth/types';
+import { ApiAuth } from '../common/api-auth.decorator';
 import { SubmitPaymentDto } from './dto/payment.dto';
 import { PaymentsService } from './payments.service';
-import { ApiAuth } from '../common/api-auth.decorator';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { type AuthUser } from '../auth/types';
 
 @ApiTags('Payments')
 @ApiAuth()
