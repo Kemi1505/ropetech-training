@@ -1,28 +1,16 @@
-import { 
-  Body, 
-  Controller, 
-  Get, 
-  Patch, 
-  Post, 
-  Res, 
-  UploadedFiles, 
-  UseInterceptors 
-} from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
 import { ApiAuth } from '../common/api-auth.decorator';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import type { AuthUser } from '../auth/types';
 import { FILE_RULES, FilesService } from '../files/files.service';
 import { CompleteProfileDto } from './dto/complete-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileService } from './profile.service';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { type AuthUser } from '../auth/types';
 
-type UploadedProfileFiles = { 
-  picture?: Express.Multer.File[]; 
-  certificationFile?: Express.Multer.File[] 
-};
+type UploadedProfileFiles = { picture?: Express.Multer.File[]; certificationFile?: Express.Multer.File[] };
 
 const uploads = () =>
   UseInterceptors(
@@ -31,8 +19,7 @@ const uploads = () =>
         { name: 'picture', maxCount: 1 },
         { name: 'certificationFile', maxCount: 1 },
       ],
-      { limits: { fileSize: FILE_RULES.certification.maxBytes } }, 
-      // per-file rules are enforced again in FilesService
+      { limits: { fileSize: FILE_RULES.certification.maxBytes } }, // per-file rules are enforced again in FilesService
     ),
   );
 
@@ -54,12 +41,8 @@ export class ProfileController {
   @ApiConsumes('multipart/form-data')
   @uploads()
   @Post()
-  complete(
-    @CurrentUser() user: AuthUser, 
-    @Body() dto: CompleteProfileDto, 
-    @UploadedFiles() files: UploadedProfileFiles
-  ) {
-    return this.profile.complete(user.id, dto, first(files));
+  complete(@CurrentUser() user: AuthUser, @Body() dto: CompleteProfileDto, @UploadedFiles() files: UploadedProfileFiles) {
+    return this.profile.complete(user.id, user.role, dto, first(files));
   }
 
   @ApiOperation({ summary: 'View your profile (certification only appears once approved)' })
@@ -72,32 +55,19 @@ export class ProfileController {
   @ApiConsumes('multipart/form-data')
   @uploads()
   @Patch()
-  update(
-    @CurrentUser() user: AuthUser, 
-    @Body() dto: UpdateProfileDto, 
-    @UploadedFiles() files: UploadedProfileFiles) {
-    return this.profile.update(user.id, dto, first(files));
+  update(@CurrentUser() user: AuthUser, @Body() dto: UpdateProfileDto, @UploadedFiles() files: UploadedProfileFiles) {
+    return this.profile.update(user.id, user.role, dto, first(files));
   }
 
   @ApiOperation({ summary: 'Your profile picture' })
   @Get('picture')
-  async picture(
-    @CurrentUser() user: AuthUser, 
-    @Res({ passthrough: true }) res: Response) {
-    return this.files.stream(
-      await this.profile.pictureFileId(user.id), 
-      res, 
-      { cache: 'private' });
+  async picture(@CurrentUser() user: AuthUser, @Res({ passthrough: true }) res: Response) {
+    return this.files.stream(await this.profile.pictureFileId(user.id), res, { cache: 'private' });
   }
 
   @ApiOperation({ summary: 'Your uploaded certification file' })
   @Get('certification-file')
-  async certification(
-    @CurrentUser() user: AuthUser, 
-    @Res({ passthrough: true }) res: Response) {
-    return this.files.stream(
-      await this.profile.certificationFileId(user.id), 
-      res, 
-      { cache: 'private' });
+  async certification(@CurrentUser() user: AuthUser, @Res({ passthrough: true }) res: Response) {
+    return this.files.stream(await this.profile.certificationFileId(user.id), res, { cache: 'private' });
   }
 }

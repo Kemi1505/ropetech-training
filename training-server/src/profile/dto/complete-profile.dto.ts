@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsBoolean, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, Matches, MaxLength } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, Matches, MaxLength } from 'class-validator';
 import { toBoolean, trim } from '../../common/transforms';
 
 export class CompleteProfileDto {
@@ -8,16 +8,17 @@ export class CompleteProfileDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(60)
-  firstName!: string;
+  firstName: string;
 
   @Transform(trim)
   @IsString()
   @IsNotEmpty()
   @MaxLength(60)
-  lastName!: string;
+  lastName: string;
 
-  @IsPhoneNumber()
-  phone!: string;
+  @Transform(trim)
+  @Matches(/^\+?[0-9\s\-()]{7,20}$/, { message: 'Enter a valid phone number' })
+  phone: string;
 
   @IsOptional()
   @Transform(trim)
@@ -25,9 +26,19 @@ export class CompleteProfileDto {
   @MaxLength(120)
   company?: string;
 
+  @IsOptional()
   @Transform(toBoolean)
   @IsBoolean()
-  hasPreviousCertification!: boolean;
+  hasPreviousCertification?: boolean;
 
+  // Files are read by multer, not validated here. Declared so Swagger shows upload buttons.
+  @ApiPropertyOptional({ type: 'string', format: 'binary', description: 'PNG, max 3 MB' })
+  picture?: unknown;
 
+  @ApiPropertyOptional({
+    type: 'string',
+    format: 'binary',
+    description: 'PDF or PNG, max 5 MB. Required when hasPreviousCertification is true',
+  })
+  certificationFile?: unknown;
 }

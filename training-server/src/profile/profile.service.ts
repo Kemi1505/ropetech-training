@@ -1,8 +1,14 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { 
+  BadRequestException, 
+  ConflictException, 
+  Injectable, 
+  NotFoundException 
+} from '@nestjs/common';
 import { FILE_RULES, FilesService } from '../files/files.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CompleteProfileDto } from './dto/complete-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { PrismaService } from '../prisma/prisma.service';
+import { Role } from '../generated/enums';
 import { Prisma } from '../generated/client';
 
 export interface ProfileUploads {
@@ -10,7 +16,7 @@ export interface ProfileUploads {
   certificationFile?: Express.Multer.File;
 }
 
-const NEEDS_CERT_FILE = 'Upload your previous certification (PDF ,JPG or PNG).';
+const NEEDS_CERT_FILE = 'Upload your previous certification (PDF or PNG).';
 
 @Injectable()
 export class ProfileService {
@@ -19,29 +25,30 @@ export class ProfileService {
     private files: FilesService,
   ) {}
 
-  async complete(
-    userId: string, 
-    dto: CompleteProfileDto, 
-    up: ProfileUploads) {
-    const existing = await this.prisma.profile.findUnique(
-    { 
-      where: { userId }, 
-      select: { id: true } 
-    });
-    if (existing) throw new ConflictException(
-      'Profile already completed. You can only edit it now.');
+  /** Company and previous-certification details only apply to learners */
+  private assertLearnerFields(
+    role: Role,
+    dto: { company?: string; hasPreviousCertification?: boolean },
+    up: ProfileUploads,
+  ) {
+    if (role !== Role.USER && (dto.company || dto.hasPreviousCertification !== undefined || up.certificationFile)) {
+      throw new BadRequestException('Company and certification details do not apply to admin accounts.');
+    }
+  }
 
-    if (dto.hasPreviousCertification && !up.certificationFile) 
-      throw new BadRequestException(NEEDS_CERT_FILE);
+  async complete(userId: string, role: Role, dto: CompleteProfileDto, up: ProfileUploads) {
+    this.assertLearnerFields(role, dto, up);
+    const existing = await this.prisma.profile.findUnique({ where: { userId }, select: { id: true } });
+    if (existing) throw new ConflictException('Profile already completed. Use PATCH /profile to edit it.');
+
+    if (dto.hasPreviousCertification && !up.certificationFile) throw new BadRequestException(NEEDS_CERT_FILE);
     if (!dto.hasPreviousCertification && up.certificationFile) {
-      throw new BadRequestException(
-        'A certification file was uploaded but hasPreviousCertification is false.');
+      throw new BadRequestException('A certification file was uploaded but hasPreviousCertification is false.');
     }
 
     const saved: string[] = [];
     try {
-      const picture = up.picture ? 
-      await this.files.save(up.picture, FILE_RULES.image) : null;
+      const picture = up.picture ? await this.files.save(up.picture, FILE_RULES.image) : null;
       if (picture) saved.push(picture.id);
       const cert = up.certificationFile
         ? await this.files.save(up.certificationFile, FILE_RULES.certification)
@@ -62,12 +69,8 @@ export class ProfileService {
       });
     } catch (err) {
       await this.files.deleteMany(saved); // don't leave orphaned uploads behind
-      if (
-        err instanceof Prisma.PrismaClientKnownRequestError 
-        && err.code === 'P2002'
-      ) {
-        throw new ConflictException(
-          'Profile already completed. You can only edit it now');
+      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+        throw new ConflictException('Profile already completed. Use PATCH /profile to edit it.');
       }
       throw err;
     }
@@ -77,16 +80,10 @@ export class ProfileService {
   async view(userId: string) {
     const p = await this.prisma.profile.findUnique({
       where: { userId },
-      include: 
-      { user: 
-        { select: 
-          { email: true, 
-            role: true } 
-          } },
+      include: { user: { select: { email: true, role: true } } },
     });
     if (!p) throw new NotFoundException('Profile not completed yet');
 
-    const approved = p.hasPreviousCertification && p.certificationApproved;
     return {
       id: p.id,
       email: p.user.email,
@@ -95,13 +92,15 @@ export class ProfileService {
       lastName: p.lastName,
       phone: p.phone,
       company: p.company,
+      hasPreviousCertification: p.hasPreviousCertification,
       pictureUrl: p.pictureFileId ? '/profile/picture' : null,
-      // Certification details are only shown once an admin has approved them
-      ...(approved
+      // Shown as soon as a file is uploaded: PENDING (waiting for review), APPROVED, or REJECTED (with the reason)
+      ...(p.hasPreviousCertification && p.certificationFileId
         ? {
             certification: {
-              approved: true,
+              status: p.certificationApproved ? 'APPROVED' : p.certificationRejectedAt ? 'REJECTED' : 'PENDING',
               approvedAt: p.certificationApprovedAt,
+              rejectionReason: p.certificationRejectionReason,
               fileUrl: '/profile/certification-file',
             },
           }
@@ -109,26 +108,26 @@ export class ProfileService {
     };
   }
 
-  async update(
-    userId: string, 
-    dto: UpdateProfileDto, 
-    up: ProfileUploads
-  ) {
+  /** Same as view(), but null instead of an error when the profile is not completed yet. */
+  async viewOrNull(userId: string) {
+    try {
+      return await this.view(userId);
+    } catch (err) {
+      if (err instanceof NotFoundException) return null;
+      throw err;
+    }
+  }
+
+  async update(userId: string, role: Role, dto: UpdateProfileDto, up: ProfileUploads) {
+    this.assertLearnerFields(role, dto, up);
     const p = await this.prisma.profile.findUnique({ where: { userId } });
     if (!p) throw new NotFoundException('Complete your profile first');
 
     const hasCert = dto.hasPreviousCertification ?? p.hasPreviousCertification;
     if (!hasCert && up.certificationFile) {
-      throw new BadRequestException(
-        'A certification file was uploaded but hasPreviousCertification is false.');
+      throw new BadRequestException('A certification file was uploaded but hasPreviousCertification is false.');
     }
-    if 
-    (
-      hasCert 
-      && !up.certificationFile 
-      && !p.certificationFileId
-    ) 
-      throw new BadRequestException(NEEDS_CERT_FILE);
+    if (hasCert && !up.certificationFile && !p.certificationFileId) throw new BadRequestException(NEEDS_CERT_FILE);
 
     const data: Prisma.ProfileUncheckedUpdateInput = {
       firstName: dto.firstName,
@@ -176,25 +175,14 @@ export class ProfileService {
   }
 
   async pictureFileId(userId: string) {
-    const p = await this.prisma.profile.findUnique
-    ({ 
-      where: 
-      { userId }, 
-      select: 
-      { 
-        pictureFileId: true       
-      } });
-    if (!p?.pictureFileId) 
-      throw new NotFoundException('No profile picture');
+    const p = await this.prisma.profile.findUnique({ where: { userId }, select: { pictureFileId: true } });
+    if (!p?.pictureFileId) throw new NotFoundException('No profile picture');
     return p.pictureFileId;
   }
 
   async certificationFileId(userId: string) {
-    const p = await this.prisma.profile.findUnique({ 
-      where: { userId }, 
-      select: { certificationFileId: true } });
-    if (!p?.certificationFileId) 
-      throw new NotFoundException('No certification file');
+    const p = await this.prisma.profile.findUnique({ where: { userId }, select: { certificationFileId: true } });
+    if (!p?.certificationFileId) throw new NotFoundException('No certification file');
     return p.certificationFileId;
   }
 }
