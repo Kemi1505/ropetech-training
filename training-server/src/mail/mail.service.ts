@@ -147,6 +147,24 @@ export class MailService {
     });
   }
 
+  async sendCertificationRejected(p: { to: string; firstName: string | null; reason: string; profileUrl: string }) {
+    const hi = p.firstName ? `Hi ${oneLine(p.firstName)},` : 'Hello,';
+    const reason = oneLine(p.reason);
+    await this.send({
+      to: p.to,
+      subject: 'Your previous certification was not approved',
+      text: `${hi}\n\nWe could not approve the certification you uploaded.\nReason: ${reason}\n\nYou can upload a new file here:\n${p.profileUrl}\n`,
+      html: `
+      <div style="font-family:Arial,sans-serif;max-width:480px">
+        <h2>Certification not approved</h2>
+        <p>${escapeHtml(hi)}</p>
+        <p>We could not approve the certification you uploaded.</p>
+        <p><b>Reason:</b> ${escapeHtml(reason)}</p>
+        <p><a href="${escapeHtml(p.profileUrl)}">Upload a new file</a> from your profile.</p>
+      </div>`,
+    });
+  }
+
   private async send(opts: MailOptions) {
     try {
       await this.transporter.sendMail({ from: this.from, ...opts });
