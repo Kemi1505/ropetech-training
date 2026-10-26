@@ -32,12 +32,27 @@ enum Difficulty {
 // UNPAID  -> enrolled, nothing submitted yet
 // PENDING -> user said "I have paid" (set by the payment module, TODO)
 // APPROVED-> admin confirmed; unlocks the course content
+// REJECTED -> admin rejected; learner can submit again
 
 enum PaymentStatus {
   UNPAID
   PENDING
   APPROVED
   REJECTED
+}
+
+enum LessonType {
+  PDF
+  VIDEO
+  SLIDES
+}
+
+enum NotificationType {
+  PAYMENT_APPROVED
+  PAYMENT_REJECTED
+  CERTIFICATION_APPROVED
+  CERTIFICATION_REJECTED
+  ASSESSMENT_PASSED
 }
 
 model User {
@@ -56,8 +71,9 @@ model User {
   resetOtps     PasswordResetOtp[]
   profile       Profile?
   enrollments   Enrollment[]
-  completions   ContentCompletion[]
-   attempts      AssessmentAttempt[]
+  completions   LessonCompletion[]
+  attempts      AssessmentAttempt[]
+  notifications Notification[]
 }
 
 model RefreshToken {
@@ -95,7 +111,6 @@ model StoredFile {
   profilePicture       Profile?       @relation("ProfilePicture")
   profileCertification Profile?       @relation("ProfileCertification")
   coursePicture        Course?        @relation("CoursePicture")
-  courseContent        CourseContent?
 }
 
 model Profile {
@@ -110,6 +125,8 @@ model Profile {
   hasPreviousCertification Boolean   @default(false)
   certificationApproved    Boolean   @default(false)
   certificationApprovedAt  DateTime?
+  certificationRejectionReason    String? // set when an admin rejects; cleared when a new file is uploaded
+  certificationRejectedAt         DateTime?
 
   pictureFileId       String?     @unique
   picture             StoredFile? @relation("ProfilePicture", fields: [pictureFileId], references: [id], onDelete: SetNull)
@@ -123,40 +140,77 @@ model Profile {
 model Course {
   id                            String     @id @default(uuid())
   name                          String
-  overview                      String
+  shortDescription              String     @default("")
+  description                   String     @map("overview") // column keeps its old name
   learningOutcomes              String[]
+  certificationRequirement      String? // text shown to learners, e.g. "Valid Banksman certification required."
   price                         Decimal    @db.Decimal(12, 2)
   requiresPreviousCertification Boolean    @default(false)
   difficulty                    Difficulty
   isPublished                   Boolean    @default(false)
+  publishedAt                   DateTime?
+  isFeatured                    Boolean    @default(false)
   passMark                      Int? // percent (1-100), set when the assessment is finished
+  maxAttempts                   Int        @default(5) // assessment attempts per learner, set by the admin
   pictureFileId                 String?    @unique
   picture                       StoredFile? @relation("CoursePicture", fields: [pictureFileId], references: [id], onDelete: SetNull)
   createdById                   String?
   createdAt                     DateTime   @default(now())
   updatedAt                     DateTime   @updatedAt
 
-  contents    CourseContent[]
+  sections    Section[]
+  lessons     Lesson[]
   enrollments Enrollment[]
   questions   Question[]
   attempts    AssessmentAttempt[]
 
   @@index([isPublished])
+  @@index([isFeatured])
 }
 
-model CourseContent {
-  id        String     @id @default(uuid())
+model Section {
+  id        String   @id @default(uuid())
   courseId  String
-  course    Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   title     String
   position  Int
-  fileId    String     @unique
-  file      StoredFile @relation(fields: [fileId], references: [id])
-  createdAt DateTime   @default(now())
-
-  completions ContentCompletion[]
+  createdAt DateTime @default(now())
+  lessons   Lesson[]
 
   @@index([courseId])
+}
+
+// One file per lesson. The file itself is in S3 under `fileKey`.
+model Lesson {
+  id          String             @id @default(uuid())
+  sectionId   String
+  section     Section            @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  courseId    String // repeated here so progress can be counted per course without a join
+  course      Course             @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title       String
+  type        LessonType
+  position    Int
+  fileKey     String
+  fileName    String
+  fileSize    Int
+  mimeType    String
+  createdAt   DateTime           @default(now())
+  completions LessonCompletion[]
+
+  @@index([sectionId])
+  @@index([courseId])
+}
+
+model LessonCompletion {
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId    String
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  courseId    String
+  completedAt DateTime @default(now())
+
+  @@id([userId, lessonId])
+  @@index([userId, courseId])
 }
 
 model Enrollment {
@@ -169,22 +223,13 @@ model Enrollment {
   paymentApprovedAt   DateTime?
   paymentApprovedById String?
   enrolledAt          DateTime      @default(now())
+  lastOpenedAt        DateTime? // powers "Continue learning"
+  lastLessonId        String?
   submissions         PaymentSubmission[]
 
   @@unique([userId, courseId])
   @@index([paymentStatus])
-}
 
-model ContentCompletion {
-  userId      String
-  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  contentId   String
-  content     CourseContent @relation(fields: [contentId], references: [id], onDelete: Cascade)
-  courseId    String // denormalised so progress can be counted per course
-  completedAt DateTime      @default(now())
-
-  @@id([userId, contentId])
-  @@index([userId, courseId])
 }
 
 // One row per "I have paid" a learner submits. Enrollment.paymentStatus stays the source of truth for access.
@@ -248,3 +293,29 @@ model AssessmentAttempt {
   @@index([userId, courseId])
 }
 
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType
+  title     String
+  body      String
+  link      String? // frontend path to open, e.g. /courses/<id>
+  readAt    DateTime?
+  createdAt DateTime         @default(now())
+
+  @@index([userId, readAt])
+  @@index([userId, createdAt])
+}
+
+
+
+model AnotherStoredFile {
+  key          String   @id
+  data         Bytes
+  contentType  String
+  size         Int      @default(0)
+  expectedSize Int
+  uploaded     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
