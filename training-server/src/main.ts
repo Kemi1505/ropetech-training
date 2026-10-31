@@ -13,7 +13,17 @@ async function bootstrap() {
 
   app.set('trust proxy', 1); // behind the Next.js proxy: rate limit by real client IP
 
-  app.use(helmet());
+  app.use(
+  helmet({
+    xFrameOptions: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'frame-ancestors': ["'self'", config.getOrThrow<string>('FRONTEND_URL')],
+      },
+    },
+  }),);
   app.use(cookieParser());
   app.enableCors({
     origin: config.getOrThrow<string>('FRONTEND_URL'),
