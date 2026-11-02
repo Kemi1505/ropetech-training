@@ -105,7 +105,7 @@ export default async function LandingPage() {
           </div>
           <div className="relative h-72 w-full overflow-hidden rounded-lg lg:h-96">
             <Image
-              src="/hero-img.jfif"
+              src="/hero-img.jpg"
               alt="Ropetech industrial training"
               fill
               sizes="(max-width: 1023px) 100vw, 50vw"

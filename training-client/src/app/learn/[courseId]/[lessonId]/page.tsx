@@ -39,9 +39,11 @@ export default async function LessonPage({ params }: { params: Promise<{ courseI
 
         {/* the file itself: shown in the page when the browser can, otherwise a download */}
         <div className="mt-6 overflow-hidden rounded-lg bg-white shadow-md shadow-brand-900/10">
-          {lesson.type === 'PDF' && 
-          <iframe src={lesson.url} 
-          title={lesson.title} className="h-[75vh] w-full" />}
+          <iframe
+            src={`/api/storage/download${new URL(lesson.url).search}`}
+            title={lesson.title}
+            className="h-[75vh] w-full"
+          />
           {lesson.type === 'VIDEO' && (
             <video controls controlsList="nodownload" playsInline preload="metadata" src={lesson.url} className="aspect-video w-full bg-black">
               Your browser cannot play this video.
