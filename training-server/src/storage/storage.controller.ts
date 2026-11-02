@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { StorageService } from './storage.service';
+import { Public } from '../auth/decorators/public.decorator';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
@@ -19,6 +20,7 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024;
 export class StorageController {
   constructor(private readonly storage: StorageService) {}
 
+  @Public()
   @Put('upload')
   async upload(
     @Query('key') key: string,
