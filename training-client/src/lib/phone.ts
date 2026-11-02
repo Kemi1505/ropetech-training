@@ -13,3 +13,11 @@ export function toE164({ country, national }: PhoneValue): string | null {
   const parsed = parsePhoneNumberFromString(national, country);
   return parsed?.isValid() ? parsed.number : null;
 }
+
+/** Split a saved number (+2348012345678) back into country + national number for editing. */
+export function fromE164(phone: string | null | undefined): PhoneValue {
+  const parsed = phone ? parsePhoneNumberFromString(phone) : undefined;
+  return parsed?.country
+    ? { country: parsed.country, national: parsed.nationalNumber }
+    : { country: DEFAULT_COUNTRY, national: '' };
+}

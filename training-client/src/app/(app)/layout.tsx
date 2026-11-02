@@ -1,37 +1,45 @@
 import { redirect } from 'next/navigation';
-import AdminSidebar from '@/components/shell/admin-sidebar';
-import UserHeader, { Person } from '@/components/shell/user-header';
+import { Footer } from '@/components/footer';
+import AdminShell from '@/components/layout/admin-shell';
+import LearnerHeader from '@/components/layout/learner-header';
 import { getSession } from '@/lib/session';
-import { apiUrl } from '@/lib/format';
+import { tryApi } from '@/lib/viewer';
 
+/**
+ * Everything after login. Learners get the top header and footer; admins and superadmins get the sidebar.
+ * A logged-in person without a profile is sent to complete it first.
+ */
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
   if (!session) redirect('/api/auth/refresh?next=/dashboard');
-  if (!session.profile) redirect('/complete-profile'); // everyone completes their profile first
+  if (!session.profile) redirect('/complete-profile');
 
   const { user, profile } = session;
-  const person: Person = {
-    fullName: `${profile.firstName} ${profile.lastName}`,
-    firstName: profile.firstName,
-    email: user.email,
-    pictureUrl: profile.pictureUrl ? apiUrl(profile.pictureUrl) : null,
-  };
+  const fullName = `${profile.firstName} ${profile.lastName}`;
 
-  // Learners get a top header, admins and superadmins get a sidebar
-  if (user.role === 'USER') {
+  if (user.role !== 'USER') {
     return (
-      <div className="min-h-dvh">
-        <UserHeader person={person} />
-        <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">{children}</main>
-      </div>
+      <AdminShell name={fullName} role={user.role}>
+        {children}
+      </AdminShell>
     );
   }
+
+  const [enrollments, unread] = await Promise.all([
+    tryApi<{ summary: { unpaidCount: number } }>('/me/enrollments'),
+    tryApi<{ unreadCount: number }>('/notifications/unread-count'),
+  ]);
+
   return (
-    <div className="min-h-dvh">
-      <AdminSidebar person={person} />
-      <div className="lg:pl-64">
-        <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-10 lg:py-10">{children}</main>
-      </div>
+    <div className="flex min-h-screen flex-col">
+      <LearnerHeader
+        firstName={profile.firstName}
+        fullName={fullName}
+        unpaidCount={enrollments?.summary.unpaidCount ?? 0}
+        unreadCount={unread?.unreadCount ?? 0}
+      />
+      <main className="flex-1">{children}</main>
+      <Footer />
     </div>
   );
 }

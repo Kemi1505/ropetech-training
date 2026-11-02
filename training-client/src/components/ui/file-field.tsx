@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useRef, useState } from 'react';
+import { useId, useRef } from 'react';
 import { formatBytes } from '@/lib/files';
 
 export default function FileField({
@@ -25,34 +25,16 @@ export default function FileField({
   const id = useId();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!file || !file.type.startsWith('image/')) {
-      setPreviewUrl(null);
-      return;
-    }
-
-    const url = URL.createObjectURL(file);
-    setPreviewUrl(url);
-
-    return () => URL.revokeObjectURL(url);
-  }, [file]);
-
   return (
     <div>
       <div className="mb-1.5 flex items-baseline justify-between">
-        <label htmlFor={id} className="text-sm font-semibold text-navy-900">
+        <label htmlFor={id} className="text-sm font-medium text-brand-800">
           {label}
         </label>
-        {optional && <span className="text-xs text-muted">Optional</span>}
+        {optional && <span className="text-xs text-brand-500">Optional</span>}
       </div>
 
-      <div
-        className={`flex items-center gap-3 rounded-md border bg-white p-3 ${
-          error ? 'border-red-500' : 'border-brand-200'
-        }`}
-        >
+      <div className={`flex items-center gap-3 rounded-md border border-dashed bg-brand-50/60 p-3 ${error ? 'border-red-400' : 'border-brand-300'}`}>
         <input
           ref={inputRef}
           id={id}
@@ -64,40 +46,17 @@ export default function FileField({
           onChange={(e) => onChange(e.target.files?.[0] ?? null)}
           className="peer sr-only"
         />
-        
         <label
           htmlFor={id}
-          className="inline-flex shrink-0 cursor-pointer items-center gap-2 border border-line bg-surface px-4 py-2 text-sm font-semibold text-navy-900 hover:bg-white peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-navy-900 peer-disabled:opacity-60"
+          className="cursor-pointer rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-100 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand-500"
         >
-          <svg
-            viewBox="0 0 24 24"
-            className="size-4"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            aria-hidden="true"
-          >
-            <path d="M12 16V4m0 0L7 9m5-5 5 5" />
-            <path d="M5 15v4h14v-4" />
-          </svg>
-          {file ? 'Change file' : 'Upload file'}
+          {file ? 'Change file' : 'Choose file'}
         </label>
-
         {file ? (
           <>
-            {previewUrl && (
-              <img
-                src={previewUrl}
-                alt={`Preview of ${file.name}`}
-                className="size-12 shrink-0 rounded-full border border-line object-cover"
-              />
-            )}
-
-            <span className="min-w-0 flex-1 truncate text-sm text-navy-900">
-              {file.name}{' '}
-              <span className="text-muted">({formatBytes(file.size)})</span>
+            <span className="min-w-0 flex-1 truncate text-sm text-black">
+              {file.name} <span className="text-brand-500">({formatBytes(file.size)})</span>
             </span>
-
             <button
               type="button"
               disabled={disabled}
@@ -105,18 +64,18 @@ export default function FileField({
                 onChange(null);
                 if (inputRef.current) inputRef.current.value = '';
               }}
-              className="shrink-0 text-sm font-semibold text-navy-800 hover:underline"
+              className="text-sm font-semibold text-brand-700 hover:text-brand-500"
             >
               Remove
             </button>
           </>
         ) : (
-          <span className="text-sm text-muted">No file chosen</span>
+          <span className="text-sm text-brand-500">No file chosen</span>
         )}
       </div>
 
       {(error || hint) && (
-        <p id={`${id}-note`} className={`mt-1.5 text-sm ${error ? 'text-red-700' : 'text-muted'}`}>
+        <p id={`${id}-note`} className={`mt-1.5 text-xs ${error ? 'text-red-600' : 'text-brand-500'}`}>
           {error ?? hint}
         </p>
       )}

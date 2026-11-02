@@ -3,9 +3,9 @@
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { ApiError, apiFetch, getErrorMessage } from '@/lib/api';
-import { validateEmail, validateNewPassword } from '@/lib/validation';
 import GoogleButton from './google-button';
 import { FormAlert, PasswordField, SubmitButton, TextField } from './fields';
+import { validateEmail, validateNewPassword } from '@/lib/validation';
 
 type Errors = { email?: string; password?: string; confirmPassword?: string };
 

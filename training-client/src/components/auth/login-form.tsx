@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { apiFetch, getErrorMessage } from '@/lib/api';
-import { validateEmail } from '@/lib/validation';
 import GoogleButton from './google-button';
 import { FormAlert, PasswordField, SubmitButton, TextField } from './fields';
+import { validateEmail } from '@/lib/validation';
 
 export default function LoginForm({ next }: { next: string }) {
   const router = useRouter();

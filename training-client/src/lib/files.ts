@@ -6,15 +6,12 @@ export interface FileRule {
   label: string;
 }
 
-export const PICTURE_RULE: FileRule = {
-  types: ['image/png', 'image/jpeg'],
-  maxBytes: 3 * MB,
-  label: 'a PNG or JPG image',
-};
+// Same limits as the backend (it re-checks the real file contents)
+export const PICTURE_RULE: FileRule = { types: ['image/png', 'image/jpeg'], maxBytes: 3 * MB, label: 'a PNG or JPG image' };
 export const CERTIFICATION_RULE: FileRule = {
-  types: ['application/pdf', 'image/png'],
+  types: ['application/pdf', 'image/png', 'image/jpeg'],
   maxBytes: 5 * MB,
-  label: 'a PDF or PNG',
+  label: 'a PDF, PNG or JPG',
 };
 
 export function validateFile(file: File | null, rule: FileRule): string | undefined {
@@ -25,4 +22,4 @@ export function validateFile(file: File | null, rule: FileRule): string | undefi
 }
 
 export const formatBytes = (n: number) =>
-  n < 1024 * 1024 ? `${Math.max(1, Math.round(n / 1024))} KB` : `${(n / (1024 * 1024)).toFixed(1)} MB`;
+  n < MB ? `${Math.max(1, Math.round(n / 1024))} KB` : `${(n / MB).toFixed(1)} MB`;

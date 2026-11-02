@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-type Variant = 'primary' | 'accent' | 'outline';
+type Variant = 'primary' | 'accent' | 'outline' | 'soft';
 
 const variantClasses: Record<Variant, string> = {
   primary: 'bg-brand-700 text-white hover:bg-brand-600',
-  accent: 'bg-accent-500 text-white hover:bg-accent-600',
+  // accent-600 (not 500): white text on the lighter orange is too faint to read
+  accent: 'bg-accent-600 text-white hover:bg-accent-500',
   outline: 'border border-brand-700 text-brand-700 hover:bg-brand-50',
+  // quiet secondary action: a light tint, no outline
+  soft: 'bg-brand-50 text-brand-700 hover:bg-brand-100',
 };
 
 const base =

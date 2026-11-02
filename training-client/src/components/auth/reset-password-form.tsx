@@ -3,10 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { apiFetch, getErrorMessage } from '@/lib/api';
-import {
-  validateEmail,
-  validateNewPassword,
-} from '@/lib/validation';
+import { validateEmail, validateNewPassword } from '@/lib/validation';
 import {
   FormAlert,
   PasswordField,

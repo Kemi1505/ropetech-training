@@ -5,6 +5,10 @@ import { Footer } from '@/components/footer';
 import Image from "next/image";
 import  Logo  from '@/components/logo';
 import EnquiryModal from '@/components/enquiry-modal';
+import { publicApi } from '@/lib/public-api';
+import type { CourseSummary, Paginated } from '@/lib/course-types';
+import CourseGrid from '@/components/courses/course-grid';
+import EmptyState from '@/components/courses/empty-state';
 
 const features = [
   {
@@ -29,22 +33,6 @@ const features = [
   },
 ];
 
-// Placeholder cards until this section is wired to GET /courses.
-const previewCourses = [
-  {
-    title: 'Rigging Fundamentals',
-    description: 'The essentials every rigger needs before stepping onto a job site.',
-  },
-  {
-    title: 'Lifting Safety Essentials',
-    description: 'Load limits, signals, and the safety checks that prevent incidents.',
-  },
-  {
-    title: 'Advanced Load Handling',
-    description: 'Complex lifts, multi-point rigging, and real-world case studies.',
-  },
-];
-
 const steps = [
   { number: '01', title: 'Sign Up', description: 'Create your account.' },
   { number: '02', title: 'Enroll', description: 'Enroll for a course.' },
@@ -53,7 +41,15 @@ const steps = [
   { number: '05', title: 'Get Certified', description: 'Earn your certificate of completion.' },
 ];
 
-export default function LandingPage() {
+const PAGE_SIZE = 3;
+
+export default async function LandingPage() {
+  const courses = await publicApi<Paginated<CourseSummary>>(
+    `/courses?page=1&limit=${PAGE_SIZE}`
+  );
+
+  const featured = courses?.data ?? [];
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-brand-100 bg-white">
@@ -107,20 +103,15 @@ export default function LandingPage() {
 
             </div>
           </div>
-          {/* TODO: replace with real industrial/training photography */}
-          <div className="flex h-72 items-center justify-center rounded-lg border border-dashed border-brand-200 bg-brand-50 px-6 text-center text-sm text-brand-400 lg:h-96">
-            
-
-            <div className="relative h-72 w-full overflow-hidden rounded-lg lg:h-96">
-              <Image
-                src="/hero-img.jpg"
-                alt="Ropetech industrial training"
-                fill
-                sizes="(max-width: 1023px) 100vw, 50vw"
-                className="object-cover"
-                priority
-              />
-            </div>
+          <div className="relative h-72 w-full overflow-hidden rounded-lg lg:h-96">
+            <Image
+              src="/hero-img.jfif"
+              alt="Ropetech industrial training"
+              fill
+              sizes="(max-width: 1023px) 100vw, 50vw"
+              className="object-cover"
+              priority
+            />
           </div>
         </section>
 
@@ -146,28 +137,32 @@ export default function LandingPage() {
         <section className="bg-white">
           <div className="mx-auto max-w-7xl px-6 py-20">
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-brand-800">Explore Courses</h2>
-              <p className="mt-3 text-black">Perfect curated curriculum for you</p>
+              <h2 className="text-3xl font-bold text-brand-800">
+                Explore Courses
+              </h2>
+              <p className="mt-3 text-black">
+                Perfect curated curriculum for you.
+              </p>
             </div>
-            <div className="mt-12 grid gap-6 sm:grid-cols-3">
-              {previewCourses.map((course) => (
-                <div
-                  key={course.title}
-                  className="overflow-hidden rounded-lg border border-brand-100 shadow-sm"
-                >
-                  {/* TODO: swap for the real course picture once GET /courses is wired in */}
-                  <div className="flex h-40 items-center justify-center bg-brand-50 text-sm text-brand-400">
-                    Course Image Example 
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-semibold text-brand-700">{course.title}</h3>
-                    <p className="mt-1 text-sm text-black">{course.description}</p>
-                  </div>
-                </div>
-              ))}
+
+            <div className="mt-12">
+              {featured.length > 0 ? (
+                <CourseGrid courses={featured} />
+              ) : (
+                <EmptyState
+                  title="No courses yet, check back later"
+                  text="New courses will appear here as soon as they are published."
+                />
+              )}
             </div>
+
             <div className="mt-12 flex justify-center">
-              <LinkButton href="/courses" variant="primary" pill className="px-10 py-4 text-base ">
+              <LinkButton
+                href="/courses"
+                variant="primary"
+                pill
+                className="px-10 py-4 text-base"
+              >
                 View all courses
               </LinkButton>
             </div>

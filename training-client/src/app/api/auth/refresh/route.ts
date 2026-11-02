@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { safeNext } from '@/lib/url';
+import { NextRequest, NextResponse } from 'next/server';
 
 /**
  * Session refresh, handled by Next so it works for BOTH callers:

@@ -2,8 +2,8 @@
 
 import { useState, type FormEvent } from 'react';
 import { apiFetch, getErrorMessage } from '@/lib/api';
-import { validateEmail } from '@/lib/validation';
 import { FormAlert, SubmitButton, TextField } from './fields';
+import { validateEmail } from '@/lib/validation';
 
 export default function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
