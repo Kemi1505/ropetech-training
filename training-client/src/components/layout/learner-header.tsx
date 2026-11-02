@@ -67,8 +67,12 @@ export default function LearnerHeader({
 
   return (
     <header className="sticky top-0 z-30 border-b border-brand-100 bg-white">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 items-center px-6 py-3 md:grid-cols-3">
-        <Logo />
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-3 md:grid md:grid-cols-3 md:px-3 md:px-6">
+        <div className="w-28 shrink-0 overflow-hidden md:w-auto">
+          <div className="origin-left scale-75 md:scale-100">
+            <Logo />
+          </div>
+        </div>
 
         <nav aria-label="Main" className="hidden items-center justify-center gap-8 text-sm md:flex">
           {NAV.map((l) => (
@@ -78,7 +82,8 @@ export default function LearnerHeader({
           ))}
         </nav>
 
-        <div className="flex items-center justify-end gap-1">
+        {/* <div className="flex shrink-0 items-center gap-1 md:gap-2"> */}
+        <div className="flex items-center justify-end gap-1 md:gap-3">
           <Link
             href="/enrollments"
             className={iconLink}
