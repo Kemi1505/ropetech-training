@@ -37,30 +37,54 @@ export default async function LessonPage({ params }: { params: Promise<{ courseI
           </span>
         </div>
 
-        {/* the file itself: shown in the page when the browser can, otherwise a download */}
+        {/* the file itself */}
         <div className="mt-6 overflow-hidden rounded-lg bg-white shadow-md shadow-brand-900/10">
-          <iframe
-            src={`/api/storage/download${new URL(lesson.url).search}`}
-            title={lesson.title}
-            className="h-[75vh] w-full"
-          />
+
+          {lesson.type === 'PDF' && (
+            <iframe
+              src={`/api/storage/download${new URL(lesson.url).search}`}
+              title={lesson.title}
+              className="h-[75vh] w-full"
+            />
+          )}
+
           {lesson.type === 'VIDEO' && (
-            <video controls controlsList="nodownload" playsInline preload="metadata" src={lesson.url} className="aspect-video w-full bg-black">
+            <video
+              controls
+              controlsList="nodownload"
+              playsInline
+              preload="metadata"
+              src={`/api/storage/download${new URL(lesson.url).search}`}
+              className="aspect-video w-full bg-black"
+            >
               Your browser cannot play this video.
             </video>
           )}
+
           {lesson.type === 'SLIDES' && (
             <div className="flex flex-col items-center px-6 py-16 text-center">
               <span className="flex size-14 items-center justify-center rounded-full bg-brand-50 text-brand-500">
                 <DocIcon className="size-7" />
               </span>
-              <p className="mt-4 font-semibold text-brand-800">{lesson.fileName}</p>
-              <p className="mt-1 max-w-sm text-sm text-brand-500">Slides open in PowerPoint, so they are offered as a download.</p>
-              <a href={lesson.url} download className="mt-6 inline-flex items-center rounded-full bg-brand-700 px-7 py-3 text-sm font-semibold text-white hover:bg-brand-600">
+
+              <p className="mt-4 font-semibold text-brand-800">
+                {lesson.fileName}
+              </p>
+
+              <p className="mt-1 max-w-sm text-sm text-brand-500">
+                Slides open in PowerPoint, so they are offered as a download.
+              </p>
+
+              <a
+                href={`/api/storage/download${new URL(lesson.url).search}`}
+                download
+                className="mt-6 inline-flex items-center rounded-full bg-brand-700 px-7 py-3 text-sm font-semibold text-white hover:bg-brand-600"
+              >
                 Download slides
               </a>
             </div>
           )}
+
         </div>
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
